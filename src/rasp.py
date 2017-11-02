@@ -14,13 +14,15 @@ class rasp(object):
 		sensors_list = []
 		url = "http://" + self.ip + ":" + self.port + "/sensors/get_sensors_list"
 		response = urllib.urlopen(url)
-		sensors_id_list =  json.loads(response.read()).keys()
+		sensors_dict = json.loads(response.read())
+		sensors_id_list =  sensors_dict.keys()
 		for sensor_id in sensors_id_list :
-			sensors_list.append(sensor(self.ip, self.port, sensor_id))
+			if (sensors_dict[sensor_id] != ""): # look if the node is empty
+				sensors_list.append(sensor(self.ip, self.port, sensor_id))
 		return sensors_list
 
 	def __str__(self):
-		temp = str(self.ip) + "\n" +\
+		temp = str(self.ip) + ":" +\
 		str(self.port) + "\n" + "{ "
 		for sensor in self.sensors_list :
 			temp += str(sensor) + " "

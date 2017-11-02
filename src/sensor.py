@@ -1,7 +1,8 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
-import urllib, json
+import urllib
+import json
 
 class sensor(object):
 	def __init__(self, ip, port, id):
@@ -14,22 +15,19 @@ class sensor(object):
 		self.controller = measures['controller']
 		self.location = measures['location']
 		self.updateTime = measures['updateTime']
-		self.temperature = []
-		self.humidity = []
-		self.luminance = []
-		self.motion = []
-		self.update_measures()
-
+		self.temperature = [measures['temperature']]
+		self.humidity = [measures['humidity']]
+		self.luminance = [measures['luminance']]
+		self.motion = [measures['motion']]
 
 	def update_measures(self):
-		if self.updateTime != 'None':
-			url = "http://" + self.ip + ":" + self.port + "/sensors/" + self.id + "/get_all_measures"
-			response = urllib.urlopen(url)
-			measures = json.loads(response.read())
-			self.temperature.append(measures['temperature'])
-			self.humidity.append(measures['humidity'])
-			self.luminance.append(measures['luminance'])
-			self.motion.append(measures['motion'])
+		url = "http://" + self.ip + ":" + self.port + "/sensors/" + self.id + "/get_all_measures"
+		response = urllib.urlopen(url)
+		measures = json.loads(response.read())
+		self.temperature.append(measures['temperature'])
+		self.humidity.append(measures['humidity'])
+		self.luminance.append(measures['luminance'])
+		self.motion.append(measures['motion'])
 
 
 	def __str__(self):
