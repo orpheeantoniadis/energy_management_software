@@ -16,15 +16,16 @@ CREATE TABLE pi(
   controller varchar
 );
 
+-- maybe create a function which check if id & controller exists before adding mesures
 CREATE TABLE mesures(
   id int,
   controller varchar,
-  humidity int CHECK (humidity BETWEEN 1 AND 100),
-  luminence int,
-  temperature int,
-  battery int,
+  humidity int CHECK (humidity BETWEEN 1 AND 100) DEFAULT NULL,
+  luminence int DEFAULT NULL,
+  temperature int DEFAULT NULL,
+  battery int DEFAULT NULL,
   datte timestamp,
-  motion boolean,
+  motion boolean DEFAULT NULL,
   CONSTRAINT key_mesures PRIMARY KEY (id,controller,datte)
 );
 
