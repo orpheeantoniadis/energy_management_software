@@ -22,6 +22,12 @@ class rasp(object):
 				sensors_list.append(sensor(self.ip, self.port, sensor_id))
 		return sensors_list
 
+	def get_sensor_datas(self,num):
+		url = "http://" + self.ip + ":" + self.port + "/sensors/" + str(num) + "/get_all_measures"
+		response = urllib.urlopen(url)
+		sens_measures = json.loads(response.read())
+		return sens_measures
+
 	def __str__(self):
 		temp = str(self.ip) + ":" +\
 		str(self.port) + "\n" + "{ "
