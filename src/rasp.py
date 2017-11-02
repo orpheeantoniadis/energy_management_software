@@ -1,7 +1,8 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
-import urllib, json
+import urllib
+import json
 from sensor import *
 
 class rasp(object):
