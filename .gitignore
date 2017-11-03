@@ -103,3 +103,6 @@ ENV/
 
 # mac
 *.DS_Store
+
+# intellij
+.idea

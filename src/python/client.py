@@ -10,23 +10,19 @@ IP_RASP3 = "129.194.185.199"
 PORT = "5000"
 
 if __name__ == '__main__':
-	rasp1 = rasp(IP_RASP1, PORT)
-	rasp2 = rasp(IP_RASP2, PORT)
-	rasp3 = rasp(IP_RASP3, PORT)
-	print(rasp1)
-	print(rasp2)
-	print(rasp3)
-	print rasp1.sensors_list[5].get_measure('temperature')
-	print rasp1.sensors_list[5].get_measure('updateTime')
-	print rasp1.sensors_list[5].get_measure('battery')
+	pi_list = []
+	pi_list.append(rasp(IP_RASP1, PORT))
+	pi_list.append(rasp(IP_RASP2, PORT))
+	pi_list.append(rasp(IP_RASP3, PORT))
+	for pi in pi_list:
+		print pi
 
-	db = Database("distributed","postgres")
-    measures = db.select_all_measures()
-	print measures
-    print measures[0]
-    print measures[2]
-    print measures[0]['id']
-    print measures[0]['controller']
-    print measures[0]['humidity']
-    print measures[0]['motion']
-    db.close()
+	db = database("sdi_ems","Orphee")
+	for pi in pi_list:
+		db.insert_pi(pi.ip, pi.port, pi.sensors_list[0].controller)
+		for sensor in pi.sensors_list:
+			db.insert_sensor(sensor.id, sensor.controller, sensor.location)
+	# db.insert_measures()
+	# measures = db.select_all_measures()
+	# print measures
+	db.close()

@@ -14,7 +14,6 @@ class sensor(object):
 		measures = json.loads(response.read())
 		self.controller = measures['controller']
 		self.location = measures['location']
-		self.updateTime = measures['updateTime']
 
 	def get_all_measures(self):
 		url = "http://" + self.ip + ":" + self.port + "/sensors/" + self.id + "/get_all_measures"
