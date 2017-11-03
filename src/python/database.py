@@ -5,7 +5,6 @@ import psycopg2
 from configparser import ConfigParser
 
 if __name__ == '__main__':
-	#conn = psycopg2.connect("dbname=exo3 user=Orphee password=")  ------- j'ai modifié ça petit Orphée
 	conn = psycopg2.connect("dbname=distributed user=postgres password=")
 	cur = conn.cursor()
 	cur.execute("SELECT * FROM mesures")

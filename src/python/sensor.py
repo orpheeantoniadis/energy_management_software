@@ -15,20 +15,16 @@ class sensor(object):
 		self.controller = measures['controller']
 		self.location = measures['location']
 		self.updateTime = measures['updateTime']
-		self.temperature = [measures['temperature']]
-		self.humidity = [measures['humidity']]
-		self.luminance = [measures['luminance']]
-		self.motion = [measures['motion']]
 
-	def update_measures(self):
+	def get_all_measures(self):
 		url = "http://" + self.ip + ":" + self.port + "/sensors/" + self.id + "/get_all_measures"
 		response = urllib.urlopen(url)
 		measures = json.loads(response.read())
-		self.temperature.append(measures['temperature'])
-		self.humidity.append(measures['humidity'])
-		self.luminance.append(measures['luminance'])
-		self.motion.append(measures['motion'])
+		return measures
 
+	def get_measure(self, data):
+		measures = self.get_all_measures()
+		return measures.get(data)
 
 	def __str__(self):
 		return str(self.id)
