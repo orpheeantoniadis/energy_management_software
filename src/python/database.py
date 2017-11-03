@@ -26,11 +26,9 @@ class Database(object):
             row = self.cursor.fetchone()
         return measures
 
-	def insert_measures(id, controller, humid, lum, temp, bat, date, motion):
-		conn = psycopg2.connect("dbname=distributed user=postgres password=")
-		cur = conn.cursor()
-		#cur.execute("INSERT INTO mesures VALUES("+str(id)+" "+controller+" "+str(humid)+" "+str(lum)+" "+str(temp)+" "+str(bat)+" "+date+" "+str(motion)+")")
-		cur.execute("INSERT INTO mesures VALUES(3,'Pi lab1',22,null,12,100,'2010-10-19 10:35:54',false)")
+    def insert_measures(self,id, controller, humid, lum, temp, bat, date, motion):
+        self.cursor.execute("INSERT INTO mesures VALUES(" + str(id) + ',' + controller + ',' + str(humid) + ',' + str(lum) + ',' + str(
+                temp) + ',' + str(bat) + ',' + date + ',' + motion + ")")
 
     def close(self):
         self.cursor.close()

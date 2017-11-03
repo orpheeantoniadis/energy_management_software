@@ -10,23 +10,27 @@ IP_RASP3 = "129.194.185.199"
 PORT = "5000"
 
 if __name__ == '__main__':
-	rasp1 = rasp(IP_RASP1, PORT)
-	rasp2 = rasp(IP_RASP2, PORT)
-	rasp3 = rasp(IP_RASP3, PORT)
-	print(rasp1)
-	print(rasp2)
-	print(rasp3)
-	print rasp1.sensors_list[5].get_measure('temperature')
-	print rasp1.sensors_list[5].get_measure('updateTime')
-	print rasp1.sensors_list[5].get_measure('battery')
 
-	db = Database("distributed","postgres")
+    # testing sensors
+    rasp1 = rasp(IP_RASP1, PORT)
+    rasp2 = rasp(IP_RASP2, PORT)
+    rasp3 = rasp(IP_RASP3, PORT)
+    print(rasp1)
+    print(rasp2)
+    print(rasp3)
+    print rasp1.sensors_list[5].get_measure('temperature')
+    print rasp1.sensors_list[5].get_measure('updateTime')
+    print rasp1.sensors_list[5].get_measure('battery')
+
+    # testing database
+    db = Database("distributed","postgres")
     measures = db.select_all_measures()
-	print measures
+    print measures
     print measures[0]
     print measures[2]
     print measures[0]['id']
     print measures[0]['controller']
     print measures[0]['humidity']
     print measures[0]['motion']
+    #db.insert_measures(1,'Pi lab1',11,11,11,11,'2010-10-19 10:35:54','true') don't work yet
     db.close()
