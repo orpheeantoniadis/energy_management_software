@@ -28,7 +28,7 @@ CREATE TABLE mesures(
   luminence int DEFAULT NULL,
   temperature int DEFAULT NULL,
   battery int DEFAULT NULL,
-  datte timestamp,
+  date timestamp,
   motion boolean DEFAULT NULL,
-  CONSTRAINT key_mesures PRIMARY KEY (id,controller,datte)
+  CONSTRAINT key_mesures PRIMARY KEY (id,controller,date)
 );

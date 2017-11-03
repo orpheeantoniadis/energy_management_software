@@ -19,10 +19,14 @@ if __name__ == '__main__':
 
 	db = database("sdi_ems","Orphee")
 	for pi in pi_list:
-		db.insert_pi(pi.ip, pi.port, pi.sensors_list[0].controller)
+		db.insert_pi(pi)
 		for sensor in pi.sensors_list:
-			db.insert_sensor(sensor.id, sensor.controller, sensor.location)
-	# db.insert_measures()
+			db.insert_sensor(sensor)
+
+	# to execute every ~4min
+	for pi in pi_list:
+		for sensor in pi.sensors_list:
+			db.insert_measures(sensor)
 	# measures = db.select_all_measures()
 	# print measures
 	db.close()

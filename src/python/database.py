@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import psycopg2
+import datetime
+from rasp import *
+from sensor import *
 
 class database(object):
 	def __init__(self, dbname, user, password=None):
@@ -24,33 +27,52 @@ class database(object):
 			row = self.cursor.fetchone()
 		return measures
 
-	def insert_pi(self, ip, port, name):
+	def insert_pi(self, pi):
+		# checks if the pi already exists in the database
 		self.cursor.execute("SELECT * FROM pi")
 		row = self.cursor.fetchone()
 		while row is not None:
-			if ip == row[0]:
+			if pi.ip == row[0]:
 				return
 			row = self.cursor.fetchone()
+
 		sql = "INSERT INTO pi VALUES(%s, %s, %s);"
-		self.cursor.execute(sql, (ip, port, name))
+		self.cursor.execute(sql, (pi.ip, pi.port, pi.sensors_list[0].controller))
 		self.connection.commit()
 
-	def insert_sensor(self, id, controller, location):
+	def insert_sensor(self, sensor):
+		# checks if the sensor already exists in the database
 		self.cursor.execute("SELECT * FROM sensors")
 		row = self.cursor.fetchone()
 		while row is not None:
-			if int(id) == row[0] and controller == row[1]:
+			if int(sensor.id) == row[0] and sensor.controller == row[1]:
 				return
 			row = self.cursor.fetchone()
+
 		sql = "INSERT INTO sensors VALUES(%s, %s, %s);"
-		self.cursor.execute(sql, (id, controller, location))
+		self.cursor.execute(sql, (sensor.id, sensor.controller, sensor.location))
 		self.connection.commit()
 
-	def insert_measures(id, controller, humid, lum, temp, bat, date, motion):
-		conn = psycopg2.connect("dbname=distributed user=postgres password=")
-		cur = conn.cursor()
-		cur.execute("INSERT INTO mesures VALUES("+str(id)+" "+controller+" "+str(humid)+" "+str(lum)+" "+str(temp)+" "+str(bat)+" "+date+" "+str(motion)+")")
-		cur.execute("INSERT INTO mesures VALUES(3,'Pi lab1',22,null,12,100,'2010-10-19 10:35:54',false)")
+	def insert_measures(self, sensor):
+		# converts timestamp into readable string
+		date = datetime.datetime.fromtimestamp(\
+		sensor.get_measure('updateTime')).strftime('%Y-%m-%d %H:%M:%S')
+
+		# checks if the data already exists in the database
+		sql = "SELECT * FROM mesures WHERE id = %s and controller ILIKE %s"
+		self.cursor.execute(sql, (sensor.id, sensor.controller))
+		row = self.cursor.fetchone()
+		while row is not None:
+			if date == str(row[6]):
+				return
+			row = self.cursor.fetchone()
+
+		sql = "INSERT INTO mesures VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"
+		self.cursor.execute(sql, (sensor.id, sensor.controller,\
+		sensor.get_measure('humidity'), sensor.get_measure('luminance'),\
+		sensor.get_measure('temperature'), sensor.get_measure('battery'),\
+		date, sensor.get_measure('motion')))
+		self.connection.commit()
 
 	def close(self):
 		self.cursor.close()
