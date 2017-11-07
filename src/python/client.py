@@ -17,18 +17,19 @@ def signal_handler(signal, frame):
 	sys.exit(0)
 
 if __name__ == '__main__':
-	signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
 
-	pi_list = []
-	pi_list.append(rasp(IP_RASP1, PORT))
-	pi_list.append(rasp(IP_RASP2, PORT))
-	pi_list.append(rasp(IP_RASP3, PORT))
+    pi_list = []
+    pi_list.append(rasp(IP_RASP1, PORT))
+    pi_list.append(rasp(IP_RASP2, PORT))
+    pi_list.append(rasp(IP_RASP3, PORT))
 
-	db = database("sdi_ems","Orphee")
-	for pi in pi_list:
-		db.insert_pi(pi)
-		for sensor in pi.sensors_list:
-			db.insert_sensor(sensor)
+
+    db = database("distributed","postgres")
+    for pi in pi_list:
+        db.insert_pi(pi)
+        for sensor in pi.sensors_list:
+            db.insert_sensor(sensor)
 
 	# to execute every ~4min
 	while True:
