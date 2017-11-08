@@ -2,21 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import psycopg2
+from configparser import ConfigParser
 import datetime
 from rasp import *
 from sensor import *
 
 class database(object):
-	def __init__(self, dbname, user, password=None):
-		self.dbname = dbname
-		self.user = user
-		self.db = "dbname=" + self.dbname + " user=" + self.user + " password="
-		if password is not None:
-			self.connection = psycopg2.connect("dbname=" + self.dbname + " user=" + self.user + " password=")
-			self.db = self.db + password
-
-		self.connection = psycopg2.connect(self.db)
+	def __init__(self):
+		params = self.config()
+		self.connection = psycopg2.connect(**params)
 		self.cursor = self.connection.cursor()
+
+	def config(self, filename='database.ini', section='postgresql'):
+		parser = ConfigParser()
+		parser.read(filename)
+		db = {}
+		if parser.has_section(section):
+			params = parser.items(section)
+			for param in params:
+				db[param[0]] = param[1]
+		else:
+			raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+		
+		return db
 
 	def select_all_measures(self):
 		self.cursor.execute("SELECT * FROM mesures")

@@ -24,7 +24,7 @@ if __name__ == '__main__':
 	pi_list.append(rasp(IP_RASP2, PORT))
 	pi_list.append(rasp(IP_RASP3, PORT))
 
-	db = database("sdi_ems","ubuntu")
+	db = database()
 	for pi in pi_list:
 		db.insert_pi(pi)
 		for sensor in pi.sensors_list:
