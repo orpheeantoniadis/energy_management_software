@@ -10,9 +10,10 @@ app = Flask(__name__)
 def index():
     return "Hello, World!"
 
-@app.route('/get_all_measures', methods=['GET'])
-def get_tasks():
-    return jsonify({'all_measures': db.select_all_measures()})
+@app.route('/<int:controller>/<int:sensor>/last_measure', methods=['GET'])
+def get_last_measure(controller, sensor):
+	return jsonify({'last_measures': db.select_last_measure(controller, sensor)})
+
 
 if __name__ == '__main__':
 	db = database()

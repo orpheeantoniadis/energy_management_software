@@ -34,6 +34,14 @@ class database(object):
 			measures.append({'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminence':row[3], 'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]})
 			row = self.cursor.fetchone()
 		return measures
+	
+	def select_last_measure(self, pi, sensor):
+		sql = "SELECT * FROM mesures WHERE controller ILIKE 'Pi %s' AND id = %s ORDER BY date DESC"
+		self.cursor.execute(sql, (pi, sensor))
+		measure = []
+		row = self.cursor.fetchone()
+		measure.append({'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminence':row[3], 'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]})
+		return measure
 
 	def insert_pi(self, pi):
 		# checks if the pi already exists in the database
