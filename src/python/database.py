@@ -43,6 +43,18 @@ class database(object):
 		measure.append({'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminence':row[3], 'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]})
 		return measure
 	
+	def select_room_avg(self, room, x):
+		sql = "SELECT location, AVG(humidity), AVG(luminence), AVG(temperature), AVG(battery) " +\
+		"FROM (SELECT s.location, m.humidity, m.luminence, m.temperature, m.battery "+\
+		"FROM mesures m JOIN sensors s ON m.id = s.id "+\
+		"WHERE s.location ILIKE %s ORDER BY date DESC LIMIT %s) l GROUP BY location"
+		self.cursor.execute(sql, (room, x))
+		measure = []
+		row = self.cursor.fetchone()
+		measure.append({'room':row[0], 'humidity':float(row[1]), 'luminence':float(row[2]),\
+		'temperature':float(row[3]), 'battery':float(row[4])})
+		return measure
+	
 	def select_measures_between(self, pi, sensor, date1, date2):
 		sql = "SELECT * FROM mesures WHERE controller ILIKE 'Pi %s' AND id = %s AND date BETWEEN %s AND %s"
 		self.cursor.execute(sql, (pi, sensor, date1, date2))

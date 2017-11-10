@@ -1,8 +1,6 @@
 
 /<controller>/<sens_num>/last_measure
 
-/average/<x>/<room_id>
+/<room_id>/average/<x>
 
 /<controller>/<sens_num>/<date1>/<date2>
-
-

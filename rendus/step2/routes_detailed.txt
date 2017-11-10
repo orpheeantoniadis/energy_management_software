@@ -14,7 +14,7 @@ route:
 2) process the average of the x last measurements of the sensors in a specific room.
 Roomse are identified by romm ID. x muste be a parameter of the request:
 
-/average/<x>/<room_id>
+/<room_id>/average/<x>
 
 <x> :   1
 	2 ...
