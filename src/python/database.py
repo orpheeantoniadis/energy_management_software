@@ -42,6 +42,16 @@ class database(object):
 		row = self.cursor.fetchone()
 		measure.append({'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminence':row[3], 'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]})
 		return measure
+	
+	def select_measures_between(self, pi, sensor, date1, date2):
+		sql = "SELECT * FROM mesures WHERE controller ILIKE 'Pi %s' AND id = %s AND date BETWEEN %s AND %s"
+		self.cursor.execute(sql, (pi, sensor, date1, date2))
+		measures = []
+		row = self.cursor.fetchone()
+		while row is not None:
+			measures.append({'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminence':row[3], 'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]})
+			row = self.cursor.fetchone()
+		return measures
 
 	def insert_pi(self, pi):
 		# checks if the pi already exists in the database
