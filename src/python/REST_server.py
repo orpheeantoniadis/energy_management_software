@@ -6,6 +6,10 @@ from database import *
 
 app = Flask(__name__)
 
+@app.route('/controllers_list', methods=['GET'])
+def get_all_controllers():
+	return jsonify(db.select_all_controllers())
+
 """
 @api {get} /:controller/:sensor/last_measures Sensor Last Measures
 @apiName GetSensorLastMeasures
