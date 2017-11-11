@@ -1,0 +1,13 @@
+{
+	"name": "sdi-ems",
+	"version": "0.1.0",
+	"dependencies": {
+		"express": "~4.14.1",
+		"cookie-session": "~2.0.0-alpha.2",
+		"ejs": "~2.5.5",
+		"node-rest-client": "~3.1.0",
+		"bootstrap": "~4.0.0-beta.2"
+	},
+	"author": "Orphée Antoniadis <orphee.antoniadis@etu.hesge.ch>",
+	"description": "Energy Management Software"
+}

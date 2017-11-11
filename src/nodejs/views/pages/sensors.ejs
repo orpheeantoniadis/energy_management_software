@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <title>Sensors</title>
+  </head>
+
+  <body>
+    <% include ../partials/header %>
+		<div class="container-fluid">
+      <div class="row">
+				<% include ../partials/menu %>
+				<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+					<h1>Sensors</h1>
+					<h4>Select the sensor:</h4>
+					<form method="post" action="/sensors/controller/">
+						<p>
+						<br/>
+						<select name="pays" id="pays">
+							<% controllers.forEach(function(controller, index) { %>
+							<option value="<%= index %>"><%= controller.name %></option>
+							<% }); %>
+						</select>
+						<select name="pays" id="pays">
+							<% controllers.forEach(function(controller, index) { %>
+							<option value="<%= index %>"><%= controller.name %></option>
+							<% }); %>
+						</select>
+						</p>
+					</form>
+				</main>
+			</div>
+    </div><!-- /.container -->
+    <% include ../partials/scripts %>
+  </body>
+</html>
