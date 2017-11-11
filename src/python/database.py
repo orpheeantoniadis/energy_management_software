@@ -27,7 +27,7 @@ class database(object):
 		return db
 
 	def select_all_measures(self):
-		self.cursor.execute("SELECT * FROM mesures")
+		self.cursor.execute("SELECT * FROM measures")
 		measures = []
 		row = self.cursor.fetchone()
 		while row is not None:
@@ -35,27 +35,27 @@ class database(object):
 			row = self.cursor.fetchone()
 		return measures
 	
-	def select_last_measure(self, pi, sensor):
-		sql = "SELECT * FROM mesures WHERE controller ILIKE 'Pi %s' AND id = %s ORDER BY date DESC"
+	def select_last_measures(self, pi, sensor):
+		sql = "SELECT * FROM measures WHERE controller ILIKE 'Pi %s' AND id = %s ORDER BY date DESC"
 		self.cursor.execute(sql, (pi, sensor))
 		row = self.cursor.fetchone()
-		measure = {'humidity':row[2], 'luminance':row[3], 'temperature':row[4],\
-		'battery': row[5], 'date':row[6], 'motion':row[7]}
-		return measure
+		measures = {'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminance':row[3],\
+		'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]}
+		return measures
 	
 	def select_room_avg(self, room, x):
-		sql = "SELECT location, AVG(humidity), AVG(luminence), AVG(temperature) " +\
-		"FROM (SELECT s.location, m.humidity, m.luminence, m.temperature "+\
-		"FROM mesures m JOIN sensors s ON m.id = s.id "+\
+		sql = "SELECT location, AVG(humidity), AVG(luminance), AVG(temperature) " +\
+		"FROM (SELECT s.location, m.humidity, m.luminance, m.temperature "+\
+		"FROM measures m JOIN sensors s ON m.id = s.id "+\
 		"WHERE s.location ILIKE %s ORDER BY date DESC LIMIT %s) l GROUP BY location"
 		self.cursor.execute(sql, (room, x))
 		row = self.cursor.fetchone()
-		measure = {'room':row[0], 'humidity':float(row[1]), 'luminance':float(row[2]),\
+		measures = {'room':row[0], 'humidity':float(row[1]), 'luminance':float(row[2]),\
 		'temperature':float(row[3])}
-		return measure
+		return measures
 	
 	def select_measures_between(self, pi, sensor, date1, date2):
-		sql = "SELECT * FROM mesures WHERE controller ILIKE 'Pi %s' AND id = %s AND date BETWEEN %s AND %s"
+		sql = "SELECT * FROM measures WHERE controller ILIKE 'Pi %s' AND id = %s AND date BETWEEN %s AND %s"
 		self.cursor.execute(sql, (pi, sensor, date1, date2))
 		measures = []
 		row = self.cursor.fetchone()
@@ -96,7 +96,7 @@ class database(object):
 		sensor.get_measure('updateTime')).strftime('%Y-%m-%d %H:%M:%S')
 
 		# checks if the data already exists in the database
-		sql = "SELECT * FROM mesures WHERE id = %s and controller ILIKE %s"
+		sql = "SELECT * FROM measures WHERE id = %s and controller ILIKE %s"
 		self.cursor.execute(sql, (sensor.id, sensor.controller))
 		row = self.cursor.fetchone()
 		while row is not None:
@@ -104,7 +104,7 @@ class database(object):
 				return
 			row = self.cursor.fetchone()
 
-		sql = "INSERT INTO mesures VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"
+		sql = "INSERT INTO measures VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"
 		self.cursor.execute(sql, (sensor.id, sensor.controller,\
 		sensor.get_measure('humidity'), sensor.get_measure('luminance'),\
 		sensor.get_measure('temperature'), sensor.get_measure('battery'),\

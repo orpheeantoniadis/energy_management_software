@@ -1,23 +1,21 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
-from flask import Flask, jsonify
+from flask import *
 from database import *
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return "Hello, World!"
-
 """
-@api {get} /:controller/:sensor/last_measure Request Sensor Last Measure
-@apiName GetSensorLastMeasure
+@api {get} /:controller/:sensor/last_measures Sensor Last Measures
+@apiName GetSensorLastMeasures
 @apiGroup SensorsMeasures
 
 @apiParam {int} controller Controller number
 @apiParam {int} sensor Sensor id
 
+@apiSuccess {int} id Sensor id
+@apiSuccess {str} controller  Controller name
 @apiSuccess {int} humidity Humidity measured by the sensor
 @apiSuccess {int} luminence  Luminence measured by the sensor
 @apiSuccess {int} temperature  Temperature measured by the sensor
@@ -25,18 +23,19 @@ def index():
 @apiSuccess {date} date  Date of the measure
 @apiSuccess {boolean} motion  Is the sensor in motion
 """
-@app.route('/<int:controller>/<int:sensor>/last_measure', methods=['GET'])
-def get_last_measure(controller, sensor):
-	return jsonify(db.select_last_measure(controller, sensor))
+@app.route('/<int:controller>/<int:sensor>/last_measures', methods=['GET'])
+def get_last_measures(controller, sensor):
+	return jsonify(db.select_last_measures(controller, sensor))
 
 """
-@api {get} /:room_id/average/:x Request Room Average x Measures
+@api {get} /:room_id/average/:x Room Average x Measures
 @apiName GetRoomAvgMeasures
 @apiGroup RoomMeasures
 
 @apiParam {int} room Room id
 @apiParam {int} x Number of measures to take
 
+@apiSuccess {str} room Room id
 @apiSuccess {float} humidity Humidity average in a room
 @apiSuccess {float} luminence  Luminence average in a room
 @apiSuccess {float} temperature  Temperature average in a room
@@ -46,7 +45,7 @@ def get_room_avg(room_id, x):
 	return jsonify(db.select_room_avg(room_id, x))
 
 """
-@api {get} /:controller/:sensor/:date1/:date2 Request Measures Between 2 Dates
+@api {get} /:controller/:sensor/:date1/:date2 Measures Between 2 Dates
 @apiName GetMeasuresBetween
 @apiGroup SensorsMeasures
 
@@ -56,7 +55,7 @@ def get_room_avg(room_id, x):
 @apiParam {int} date2 Second date
 
 @apiSuccess {int} id Sensor id
-@apiSuccess {String} controller  Controller name
+@apiSuccess {str} controller  Controller name
 @apiSuccess {int} humidity Humidity measured by the sensor
 @apiSuccess {int} luminence  Luminence measured by the sensor
 @apiSuccess {int} temperature  Temperature measured by the sensor

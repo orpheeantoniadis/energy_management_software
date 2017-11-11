@@ -4,7 +4,7 @@ CREATE DATABASE sdi_ems;
 
 DROP TABLE IF EXISTS pi CASCADE;
 DROP TABLE IF EXISTS sensors CASCADE;
-DROP TABLE IF EXISTS mesures CASCADE;
+DROP TABLE IF EXISTS measures CASCADE;
 
 
 CREATE TABLE sensors(
@@ -17,18 +17,18 @@ CREATE TABLE sensors(
 CREATE TABLE pi(
   ip varchar(15) PRIMARY KEY,
   port int,
-  controller varchar
+  name varchar
 );
 
 -- maybe create a function which check if id & controller exists before adding mesures
-CREATE TABLE mesures(
+CREATE TABLE measures(
   id int,
   controller varchar,
   humidity int CHECK (humidity BETWEEN 1 AND 100) DEFAULT NULL,
-  luminence int DEFAULT NULL,
+  luminance int DEFAULT NULL,
   temperature int DEFAULT NULL,
   battery int DEFAULT NULL,
   date timestamp,
   motion boolean DEFAULT NULL,
-  CONSTRAINT key_mesures PRIMARY KEY (id,controller,date)
+  CONSTRAINT key_measures PRIMARY KEY (id,controller,date)
 );
