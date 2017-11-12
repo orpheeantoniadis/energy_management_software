@@ -12,18 +12,25 @@
 				<% include ../partials/menu %>
 				<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
 					<h1>Sensors</h1>
-					<h4>Select the sensor:</h4>
+					<!-- <h4>Select the sensor:</h4> -->
 					<form method="post" action="/sensors/controller/">
 						<p>
 						<br/>
-						<select name="pays" id="pays">
+						<label for="pseudo">Select the sensor:</label>
+						<select name="controller" id="controller" onchange="form.submit()">
 							<% controllers.forEach(function(controller, index) { %>
-							<option value="<%= index %>"><%= controller.name %></option>
+							<option 
+								value="<%= controller.name %>"
+								<% if(controllerSel == controller.name){ %>
+									selected
+								<% } %>>
+								<%= controller.name %>
+							</option>
 							<% }); %>
 						</select>
-						<select name="pays" id="pays">
-							<% controllers.forEach(function(controller, index) { %>
-							<option value="<%= index %>"><%= controller.name %></option>
+						<select name="sensor" id="sensor">
+							<% sensors.forEach(function(sensor, index) { %>
+							<option value="<%= index %>"><%= sensor.id %></option>
 							<% }); %>
 						</select>
 						</p>

@@ -4,26 +4,26 @@
 	<ul class="nav nav-pills flex-column">
 		<li class="nav-item">
 			<a
-				<% if(query == "/"){ %>
+				<% if(url == "/"){ %>
 					class="nav-link active"
 				<% } else { %>
 					class="nav-link"
 				<% } %>
 				href="/">Overview
-				<% if(query == "/"){ %>
+				<% if(url == "/"){ %>
 					<span class="sr-only">(current)</span>
 				<% } %>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a
-				<% if(query == "/sensors"){ %>
+				<% if(url == "/sensors"){ %>
 					class="nav-link active"
 				<% } else { %>
 					class="nav-link"
 				<% } %>
 				href="/sensors">Sensors
-				<% if(query == "/sensors"){ %>
+				<% if(url == "/sensors"){ %>
 					<span class="sr-only">(current)</span>
 				<% } %>
 			</a>

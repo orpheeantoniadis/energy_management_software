@@ -1,52 +1,44 @@
 var express = require('express');
-var session = require('cookie-session');
+var bodyParser = require('body-parser');
 var Client = require('node-rest-client').Client;
-var path = require("path");
 
 var app = express();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var client = new Client();
+
+var controllers = [];
+var sensors = [];
+
+var controllerSel;
  
-// registering remote methods 
-// client.registerMethod("jsonMethod", "http://localhost:5000/1/4/last_measures", "GET");
 client.registerMethod("jsonMethod", "http://localhost:5000/controllers_list", "GET");
 
- 
 client.methods.jsonMethod(function (data, response) {
-    console.log(data);
-		console.log(Array.from(data));
-		console.log(data[1]);
+	controllers = Array.from(data);
 });
 
-app.use(session({ secret: 'secretodolist' }))
-
-.use(express.static(__dirname + "/node_modules"))
+app.use(express.static(__dirname + "/node_modules"))
 
 .use(express.static(__dirname + "/views/css"))
 
 .use(express.static(__dirname + '/../apidoc'))
 
-.use(function(req, res, next) {
-	if (typeof(req.session.controllers) == 'undefined') {
-		req.session.controllers = [];
-	}
-	next();
-})
-
 .get('/', function(req, res) {
-	res.render('pages/index.ejs', {query : '/'});
+	res.render('pages/index.ejs', {url : '/'});
 })
 
 .get('/sensors', function(req, res) {
-	var controllers = [];
-	client.registerMethod("jsonMethod", "http://localhost:5000/controllers_list", "GET");
-	client.methods.jsonMethod(
-		function (data, response) {
-			controllers.push(Array.from(data));
-			return data;
-		}
-	);
-	console.log(controllers);
-	res.render('pages/sensors.ejs', { query: '/sensors', controllers: req.session.controllers });
+	res.render('pages/sensors.ejs', { url: '/sensors', controllers: controllers, 
+	sensors: sensors,  controllerSel: controllerSel});
+})
+
+.post('/sensors/controller', urlencodedParser, function(req, res) {
+	controllerSel = req.body.controller;
+	client.registerMethod("jsonMethod", "http://localhost:5000/"+controllerSel+"/sensors_list", "GET");
+	client.methods.jsonMethod(function (data, response) {
+		sensors = Array.from(data);
+	});
+	res.redirect('/sensors');
 })
 
 .listen(8080);
