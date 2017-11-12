@@ -31,7 +31,7 @@ def get_all_sensors(controller):
 @apiSuccess {date} date  Date of the measure
 @apiSuccess {boolean} motion  Is the sensor in motion
 """
-@app.route('/<int:controller>/<int:sensor>/last_measures', methods=['GET'])
+@app.route('/<string:controller>/<int:sensor>/last_measures', methods=['GET'])
 def get_last_measures(controller, sensor):
 	return jsonify(db.select_last_measures(controller, sensor))
 

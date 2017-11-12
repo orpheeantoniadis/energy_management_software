@@ -55,7 +55,7 @@ class database(object):
 		return sensors
 	
 	def select_last_measures(self, pi, sensor):
-		sql = "SELECT * FROM measures WHERE controller ILIKE 'Pi %s' AND id = %s ORDER BY date DESC"
+		sql = "SELECT * FROM measures WHERE controller ILIKE %s AND id = %s ORDER BY date DESC"
 		self.cursor.execute(sql, (pi, sensor))
 		row = self.cursor.fetchone()
 		measures = {'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminance':row[3],\

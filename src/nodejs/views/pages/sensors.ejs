@@ -13,10 +13,8 @@
 				<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
 					<h1>Sensors</h1>
 					<!-- <h4>Select the sensor:</h4> -->
-					<form method="post" action="/sensors/controller/">
-						<p>
-						<br/>
-						<label for="pseudo">Select the sensor:</label>
+					<form method="post" action="/sensors/selection/">
+						<label for="pseudo">Select the sensor :</label>
 						<select name="controller" id="controller" onchange="form.submit()">
 							<% controllers.forEach(function(controller, index) { %>
 							<option 
@@ -28,13 +26,43 @@
 							</option>
 							<% }); %>
 						</select>
-						<select name="sensor" id="sensor">
+						<select name="sensor" id="sensor" onchange="form.submit()">
 							<% sensors.forEach(function(sensor, index) { %>
-							<option value="<%= index %>"><%= sensor.id %></option>
+							<option 
+								value="<%= sensor.id %>"
+								<% if(sensorSel == sensor.id){ %>
+									selected
+								<% } %>>
+								<%= sensor.id %>
+							</option>
 							<% }); %>
 						</select>
-						</p>
 					</form>
+					<h2>Measures</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+									<th>date</th>
+                  <th>temperature</th>
+                  <th>humidity</th>
+                  <th>luminance</th>
+                  <th>battery</th>
+                  <th>motion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= measures.date %></td>
+                  <td><%= measures.temperature %></td>
+                  <td><%= measures.temperature %></td>
+                  <td><%= measures.luminance %></td>
+                  <td><%= measures.battery %></td>
+									<td><%= measures.motion %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 				</main>
 			</div>
     </div><!-- /.container -->
