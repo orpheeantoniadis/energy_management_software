@@ -35,6 +35,15 @@ class database(object):
 			row = self.cursor.fetchone()
 		return measures
 	
+	def select_all_controllers(self):
+		self.cursor.execute("SELECT * FROM pi")
+		controllers = []
+		row = self.cursor.fetchone()
+		while row is not None:
+			controllers.append({'ip':row[0], 'port':row[1], 'name':row[2]})
+			row = self.cursor.fetchone()
+		return controllers
+	
 	def select_last_measures(self, pi, sensor):
 		sql = "SELECT * FROM measures WHERE controller ILIKE 'Pi %s' AND id = %s ORDER BY date DESC"
 		self.cursor.execute(sql, (pi, sensor))
