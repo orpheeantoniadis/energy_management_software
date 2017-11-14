@@ -1,4 +1,6 @@
 var express = require('express');
+var session = require('express-session');
+var parseurl = require('parseurl')
 var bodyParser = require('body-parser');
 var Client = require('node-rest-client').Client;
 
@@ -7,15 +9,41 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var controllers = [];
 var sensors = [];
-
 var controllerSel;
 var sensorSel;
 
-app.use(express.static(__dirname + "/node_modules"))
+app.use(session({
+  secret: 'secretkey',
+  resave: false,
+  saveUninitialized: true
+}))
+
+.use(express.static(__dirname + "/node_modules"))
 
 .use(express.static(__dirname + "/views/css"))
 
 .use(express.static(__dirname + '/../apidoc'))
+
+.use(function(req, res, next) {
+	if (typeof(req.session.controllers) == 'undefined') {
+		req.session.controllers = [];
+	} else if (req.session.controllers.length == 0) {
+		req.session.controllers = controllers;
+		req.session.controllerSel = controllerSel;
+	}
+	next();
+})
+
+// initialisation du tableau associatif
+.use(function(req, res, next) {
+	if (typeof(req.session.sensors) == 'undefined') {
+		req.session.sensors = [];
+	} else if (req.session.sensors.length == 0) {
+		req.session.sensors = sensors;
+		req.session.sensorSel = sensorSel;
+	}
+	next();
+})
 
 .use(function(req, res, next) {
 	if (controllers.length == 0) {
@@ -36,36 +64,45 @@ app.use(express.static(__dirname + "/node_modules"))
 })
 
 .get('/', function(req, res) {
-	res.render('pages/index.ejs', {url : '/'});
+	res.render('pages/index.ejs', {url : parseurl(req).pathname});
 })
 
 .get('/sensors', function(req, res) {
 	var client = new Client();
-	client.registerMethod("jsonMethod", "http://localhost:5000/"+controllerSel+"/"+sensorSel+"/last_measures", "GET");
+	client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
+	"/"+req.session.sensorSel+"/last_measures", "GET");
 	client.methods.jsonMethod(function (data, response) {
-		res.render('pages/sensors.ejs', { url: '/sensors', controllers: controllers, 
-		sensors: sensors,  controllerSel: controllerSel, sensorSel: sensorSel, measures: data});
+		res.render('pages/sensors.ejs', {
+			url:  parseurl(req).pathname, 
+			controllers: req.session.controllers,
+			sensors: req.session.sensors,
+			controllerSel: req.session.controllerSel,
+			sensorSel: req.session.sensorSel,
+			measures: data
+		});
 	});
 })
 
 .post('/sensors/selection', urlencodedParser, function(req, res) {
-	if (controllerSel != req.body.controller) {
+	if (req.session.controllerSel != req.body.controller) {
 		var client = new Client();
-		controllerSel = req.body.controller;
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+controllerSel+"/sensors_list", "GET");
+		req.session.controllerSel = req.body.controller;
+		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
+		"/sensors_list", "GET");
 		client.methods.jsonMethod(function (data, response) {
-			sensors = Array.from(data);
-			sensorSel = sensors[0].id;
+			req.session.sensors = Array.from(data);
+			req.session.sensorSel = req.session.sensors[0].id;
+			res.redirect('/sensors');
 		});
 	} else {
-		controllerSel = req.body.controller;
-		sensorSel = req.body.sensor;
+		req.session.controllerSel = req.body.controller;
+		req.session.sensorSel = req.body.sensor;
+		res.redirect('/sensors');
 	}
-	res.redirect('/sensors');
 })
 
 .get('/rooms', function(req, res) {
-	res.render('pages/rooms.ejs', {url : '/rooms'});
+	res.render('pages/rooms.ejs', {url : parseurl(req).pathname});
 })
 
 .listen(8080);
