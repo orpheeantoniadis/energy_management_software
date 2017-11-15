@@ -57,7 +57,7 @@ def get_room_avg(room_id, x):
 @apiName GetMeasuresBetween
 @apiGroup SensorsMeasures
 
-@apiParam {int} controller Controller number
+@apiParam {str} controller Controller number
 @apiParam {int} sensor Sensor id
 @apiParam {int} date1 First date
 @apiParam {int} date2 Second date
@@ -71,7 +71,7 @@ def get_room_avg(room_id, x):
 @apiSuccess {date} date  Date of the measure
 @apiSuccess {boolean} motion  Is the sensor in motion
 """
-@app.route('/<int:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])
+@app.route('/<string:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])
 def get_measures_between(controller, sensor, date1, date2):
 	return jsonify(db.select_measures_between(controller, sensor, date1, date2))
 

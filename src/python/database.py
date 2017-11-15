@@ -74,7 +74,7 @@ class database(object):
 		return measures
 	
 	def select_measures_between(self, pi, sensor, date1, date2):
-		sql = "SELECT * FROM measures WHERE controller ILIKE 'Pi %s' AND id = %s AND date BETWEEN %s AND %s"
+		sql = "SELECT * FROM measures WHERE controller ILIKE %s AND id = %s AND date BETWEEN %s AND %s"
 		self.cursor.execute(sql, (pi, sensor, date1, date2))
 		measures = []
 		row = self.cursor.fetchone()
