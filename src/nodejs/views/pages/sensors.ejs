@@ -3,6 +3,11 @@
   <head>
     <% include ../partials/head %>
     <title>Sensors</title>
+		<script>
+	  $( function() {
+	    $( "#datepicker" ).datepicker();
+	  } );
+	  </script>
   </head>
 
   <body>
@@ -12,7 +17,6 @@
 				<% include ../partials/menu %>
 				<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
 					<h1>Sensors</h1>
-					<!-- <h4>Select the sensor:</h4> -->
 					<form method="post" action="/sensors/selection/">
 						<label for="pseudo">Select the sensor :</label>
 						<select name="controller" id="controller" onchange="form.submit()">
@@ -38,6 +42,7 @@
 							<% }); %>
 						</select>
 					</form>
+					<input type="text" id="datepicker">
 					<h2>Measures</h2>
           <div class="table-responsive">
             <table class="table table-striped">
@@ -66,6 +71,6 @@
 				</main>
 			</div>
     </div><!-- /.container -->
-    <% include ../partials/scripts %>
+    <% include ../partials/footer %>
   </body>
 </html>

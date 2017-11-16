@@ -105,4 +105,8 @@ app.use(session({
 	res.render('pages/rooms.ejs', {url : parseurl(req).pathname});
 })
 
+.get('/test', function(req, res) {
+	res.render('pages/test.ejs', {url : parseurl(req).pathname});
+})
+
 .listen(8080);
