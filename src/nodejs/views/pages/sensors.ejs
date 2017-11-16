@@ -3,11 +3,6 @@
   <head>
     <% include ../partials/head %>
     <title>Sensors</title>
-		<script>
-	  $( function() {
-	    $( "#datepicker" ).datepicker();
-	  } );
-	  </script>
   </head>
 
   <body>
@@ -42,8 +37,40 @@
 							<% }); %>
 						</select>
 					</form>
-					<input type="text" id="datepicker">
+					<div class="input-group">   
+					  <div class="form-group">
+							<form id="formDaterange" method="post" action="/sensors/daterange/">
+						    <div class="input-group">
+									<span class="input-group-addon">
+						        <input type="checkbox"
+											onclick="document.getElementById('daterange').disabled=!this.checked;">
+						      </span>
+						      <input class="form-control" id="daterange" name="daterange"
+										type="text" placeholder="Ex : 08-11-2017 - 15-11-2017" disabled/>
+									<span class="input-group-addon">
+										<i class="fa fa-calendar" aria-hidden="true"></i>
+									</span>
+						    </div>
+							</form>
+					  </div>
+					</div>
 					<h2>Measures</h2>
+        	<canvas id="line-chart"></canvas>
+					<script>
+						var date = [];
+						var temperature = [];
+						var humidity = [];
+						var luminance = [];
+						var battery = [];
+						<% measures.forEach(function(measure, index) { %>
+							date.push("<%= measures[index].date %>");
+							temperature.push(<%= measures[index].temperature %>)
+							humidity.push(<%= measures[index].humidity %>)
+							luminance.push(<%= measures[index].luminance %>)
+							battery.push(<%= measures[index].battery %>)
+						<% }); %>
+						display_chart(date, temperature, humidity, luminance, battery);
+					</script>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -57,14 +84,16 @@
                 </tr>
               </thead>
               <tbody>
+								<% measures.forEach(function(measure, index) { %>
                 <tr>
-                  <td><%= measures.date %></td>
-                  <td><%= measures.temperature %></td>
-                  <td><%= measures.temperature %></td>
-                  <td><%= measures.luminance %></td>
-                  <td><%= measures.battery %></td>
-									<td><%= measures.motion %></td>
+                  <td><%= measures[index].date %></td>
+                  <td><%= measures[index].temperature %></td>
+                  <td><%= measures[index].humidity %></td>
+                  <td><%= measures[index].luminance %></td>
+                  <td><%= measures[index].battery %></td>
+									<td><%= measures[index].motion %></td>
                 </tr>
+								<% }); %>
               </tbody>
             </table>
           </div>

@@ -58,8 +58,8 @@ class database(object):
 		sql = "SELECT * FROM measures WHERE controller ILIKE %s AND id = %s ORDER BY date DESC"
 		self.cursor.execute(sql, (pi, sensor))
 		row = self.cursor.fetchone()
-		measures = {'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminance':row[3],\
-		'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]}
+		measures = [{'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminance':row[3],\
+		'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]}]
 		return measures
 	
 	def select_room_avg(self, room, x):
