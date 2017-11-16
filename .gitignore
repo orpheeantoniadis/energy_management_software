@@ -6,3 +6,4 @@ id_raspberry
 
 # PyCharm
 .idea/
+*.pyc
