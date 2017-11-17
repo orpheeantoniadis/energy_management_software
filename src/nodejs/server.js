@@ -12,6 +12,8 @@ var sensors = [];
 var controllerSel;
 var sensorSel;
 
+const REST_IP = "192.168.0.22";
+
 app.use(session({
   secret: 'secretkey',
   resave: false,
@@ -47,12 +49,12 @@ app.use(session({
 .use(function(req, res, next) {
 	if (controllers.length == 0) {
 		var client = new Client();
-		client.registerMethod("jsonMethod", "http://localhost:5000/controllers_list", "GET");
+		client.registerMethod("jsonMethod", "http://"+REST_IP+":5000/controllers_list", "GET");
 		client.methods.jsonMethod(function (data, response) {
 			controllers = Array.from(data);
 			controllerSel = controllers[0].name;
 			var client = new Client();
-			client.registerMethod("jsonMethod", "http://localhost:5000/"+controllers[0].name+"/sensors_list", "GET");
+			client.registerMethod("jsonMethod", "http://"+REST_IP+":5000/"+controllers[0].name+"/sensors_list", "GET");
 			client.methods.jsonMethod(function (data, response) {
 				sensors = Array.from(data);
 				sensorSel = sensors[0].id;
@@ -69,7 +71,7 @@ app.use(session({
 .get('/sensors', function(req, res) {
 	var client = new Client();
 	if (!req.session.datarangeMode) {
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
+		client.registerMethod("jsonMethod", "http://"+REST_IP+":5000/"+req.session.controllerSel+
 		"/"+req.session.sensorSel+"/last_measures", "GET");
 		client.methods.jsonMethod(function (data, response) {
 			res.render('pages/sensors.ejs', {
@@ -82,7 +84,7 @@ app.use(session({
 			});
 		});
 	} else {
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
+		client.registerMethod("jsonMethod", "http://"+REST_IP+":5000/"+req.session.controllerSel+
 		"/"+req.session.sensorSel+"/"+req.session.datarange[0]+"/"+req.session.datarange[1], "GET");
 		client.methods.jsonMethod(function (data, response) {
 			res.render('pages/sensors.ejs', {
@@ -102,7 +104,7 @@ app.use(session({
 	if (req.session.controllerSel != req.body.controller) {
 		var client = new Client();
 		req.session.controllerSel = req.body.controller;
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
+		client.registerMethod("jsonMethod", "http://"+REST_IP+":5000/"+req.session.controllerSel+
 		"/sensors_list", "GET");
 		client.methods.jsonMethod(function (data, response) {
 			req.session.sensors = Array.from(data);

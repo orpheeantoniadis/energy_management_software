@@ -77,4 +77,4 @@ def get_measures_between(controller, sensor, date1, date2):
 
 if __name__ == '__main__':
 	db = database()
-	app.run(debug=True)
+	app.run(debug=True,host="192.168.0.22")
