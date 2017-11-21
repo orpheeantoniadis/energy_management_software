@@ -3,6 +3,7 @@
 
 from flask import *
 from database import *
+from configparser import ConfigParser
 
 app = Flask(__name__)
 
@@ -21,18 +22,18 @@ curl -i http://localhost:5000/controllers_list
 @apiSuccessExample {json} Success-Response:
 [
   {
-    "ip": "129.194.184.124", 
-    "name": "Pi 1", 
+    "ip": "129.194.184.124",
+    "name": "Pi 1",
     "port": 5000
-  }, 
+  },
   {
-    "ip": "129.194.184.125", 
-    "name": "Pi 2", 
+    "ip": "129.194.184.125",
+    "name": "Pi 2",
     "port": 5000
-  }, 
+  },
   {
-    "ip": "129.194.185.199", 
-    "name": "Pi 3", 
+    "ip": "129.194.185.199",
+    "name": "Pi 3",
     "port": 5000
   }
 ]
@@ -58,20 +59,30 @@ curl -i http://localhost:5000/Pi%201/sensors_list
 @apiSuccessExample {json} Success-Response:
 [
   {
-    "controller": "Pi 1", 
-    "id": 2, 
+    "controller": "Pi 1",
+    "id": 2,
     "location": "A501"
-  }, 
+  },
   {
-    "controller": "Pi 1", 
-    "id": 4, 
+    "controller": "Pi 1",
+    "id": 4,
     "location": "A502"
   }
 ]
 """
 @app.route('/<string:controller>/sensors_list', methods=['GET'])
 def get_all_sensors(controller):
-	return jsonify(db.select_all_sensors(controller))
+	flag = False
+	# check if <controller> exists
+	controllers = db.select_all_controllers()
+	for cont in controllers:
+		if cont.get('name') == controller:
+			flag = True
+
+	if flag == True:
+		return jsonify(db.select_all_sensors(controller))
+
+	return 'Sorry, wrong controller !'
 
 """
 @api {get} /:controller/:sensor/last_measures Sensor Last Measures
@@ -96,19 +107,37 @@ curl -i http://localhost:5000/Pi%201/2/last_measures
 @apiSuccessExample {json} Success-Response:
 [
   {
-    "battery": 23, 
-    "controller": "Pi 1", 
-    "date": "Mon, 20 Nov 2017 11:02:00 GMT", 
-    "humidity": 27, 
-    "id": 2, 
-    "luminance": 172, 
-    "motion": true, 
+    "battery": 23,
+    "controller": "Pi 1",
+    "date": "Mon, 20 Nov 2017 11:02:00 GMT",
+    "humidity": 27,
+    "id": 2,
+    "luminance": 172,
+    "motion": true,
     "temperature": 23
   }
 ]
 """
 @app.route('/<string:controller>/<int:sensor>/last_measures', methods=['GET'])
 def get_last_measures(controller, sensor):
+	flag = False
+	# check if controller exists
+	controllers = db.select_all_controllers()
+	for cont in controllers:
+		if cont.get('name') == controller:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong controller !'
+
+	# check if the sensor exists
+	flag = False
+	sensors = db.select_all_sensors(controller)
+	for sens in sensors:
+		if sens.get('id') == sensor:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong sensor !'
+
 	return jsonify(db.select_last_measures(controller, sensor))
 
 """
@@ -130,15 +159,25 @@ curl -i http://localhost:5000/A432/average/5
 @apiSuccessExample {json} Success-Response:
 [
   {
-    "humidity": 20.0, 
-    "luminance": 130.4, 
-    "room": "A432", 
+    "humidity": 20.0,
+    "luminance": 130.4,
+    "room": "A432",
     "temperature": 27.4
   }
 ]
 """
 @app.route('/<string:room_id>/average/<int:x>', methods=['GET'])
 def get_room_avg(room_id, x):
+	flag = False
+	rooms = db.select_all_rooms()
+	for room in rooms:
+		if room == room_id:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong room !'
+	nbr = db.select_nbr_measures_room(room_id)
+	if x > nbr:
+		return 'Sorry, there is just '+str(nbr)+' measures for this room'
 	return jsonify(db.select_room_avg(room_id, x))
 
 """
@@ -166,41 +205,66 @@ curl -i http://localhost:5000/Pi%201/2/2017-11-15%2008:24:30/2017-11-15%2009:36:
 @apiSuccessExample {json} Success-Response:
 [
   {
-    "battery": 29, 
-    "controller": "Pi 1", 
-    "date": "Wed, 15 Nov 2017 08:24:30 GMT", 
-    "humidity": 23, 
-    "id": 2, 
-    "luminance": 163, 
-    "motion": false, 
+    "battery": 29,
+    "controller": "Pi 1",
+    "date": "Wed, 15 Nov 2017 08:24:30 GMT",
+    "humidity": 23,
+    "id": 2,
+    "luminance": 163,
+    "motion": false,
     "temperature": 21
-  }, 
+  },
   {
-    "battery": 29, 
-    "controller": "Pi 1", 
-    "date": "Wed, 15 Nov 2017 08:28:30 GMT", 
-    "humidity": 23, 
-    "id": 2, 
-    "luminance": 176, 
-    "motion": false, 
+    "battery": 29,
+    "controller": "Pi 1",
+    "date": "Wed, 15 Nov 2017 08:28:30 GMT",
+    "humidity": 23,
+    "id": 2,
+    "luminance": 176,
+    "motion": false,
     "temperature": 21
-  }, 
+  },
   {
-    "battery": 29, 
-    "controller": "Pi 1", 
-    "date": "Wed, 15 Nov 2017 09:36:30 GMT", 
-    "humidity": 22, 
-    "id": 2, 
-    "luminance": 1000, 
-    "motion": false, 
+    "battery": 29,
+    "controller": "Pi 1",
+    "date": "Wed, 15 Nov 2017 09:36:30 GMT",
+    "humidity": 22,
+    "id": 2,
+    "luminance": 1000,
+    "motion": false,
     "temperature": 22
   }
 ]
 """
 @app.route('/<string:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])
 def get_measures_between(controller, sensor, date1, date2):
+	flag = False
+	# check if controller exists
+	controllers = db.select_all_controllers()
+	for cont in controllers:
+		if cont.get('name') == controller:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong controller !'
+
+	# check if the sensor exists
+	flag = False
+	sensors = db.select_all_sensors(controller)
+	for sens in sensors:
+		if sens.get('id') == sensor:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong sensor !'
+
 	return jsonify(db.select_measures_between(controller, sensor, date1, date2))
 
 if __name__ == '__main__':
 	db = database()
-	app.run(debug=True)
+	parser = ConfigParser()
+	parser.read('rest_server.ini')
+	if parser.has_section('rest_server'):
+		params = parser.items('rest_server')
+		ip = params[0]
+	else:
+		raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+	app.run(debug=True,host=ip[1])

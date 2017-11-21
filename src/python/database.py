@@ -23,7 +23,7 @@ class database(object):
 				db[param[0]] = param[1]
 		else:
 			raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-		
+
 		return db
 
 	def select_all_measures(self):
@@ -34,7 +34,7 @@ class database(object):
 			measures.append({'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminance':row[3], 'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]})
 			row = self.cursor.fetchone()
 		return measures
-	
+
 	def select_all_controllers(self):
 		self.cursor.execute("SELECT * FROM pi")
 		controllers = []
@@ -43,7 +43,7 @@ class database(object):
 			controllers.append({'ip':row[0], 'port':row[1], 'name':row[2]})
 			row = self.cursor.fetchone()
 		return controllers
-	
+
 	def select_all_sensors(self, pi):
 		sql = "SELECT * FROM sensors WHERE controller ILIKE %s ORDER BY id ASC"
 		self.cursor.execute(sql, (pi,))
@@ -53,7 +53,7 @@ class database(object):
 			sensors.append({'id':row[0], 'controller':row[1], 'location':row[2]})
 			row = self.cursor.fetchone()
 		return sensors
-	
+
 	def select_last_measures(self, pi, sensor):
 		sql = "SELECT * FROM measures WHERE controller ILIKE %s AND id = %s ORDER BY date DESC"
 		self.cursor.execute(sql, (pi, sensor))
@@ -61,7 +61,7 @@ class database(object):
 		measures = [{'id':row[0], 'controller':row[1], 'humidity':row[2], 'luminance':row[3],\
 		'temperature':row[4], 'battery': row[5], 'date':row[6], 'motion':row[7]}]
 		return measures
-	
+
 	def select_room_avg(self, room, x):
 		sql = "SELECT location, AVG(humidity), AVG(luminance), AVG(temperature) " +\
 		"FROM (SELECT s.location, m.humidity, m.luminance, m.temperature "+\
@@ -72,7 +72,24 @@ class database(object):
 		measures = [{'room':row[0], 'humidity':float(row[1]), 'luminance':float(row[2]),\
 		'temperature':float(row[3])}]
 		return measures
-	
+
+	def select_nbr_measures_room(self,room):
+		sql = "SELECT count(*) FROM sensors join measures on sensors.id = "+\
+		"measures.id where location like '" + room +"'"
+		self.cursor.execute(sql)
+		row = self.cursor.fetchone()
+		return row[0]
+
+	def select_all_rooms(self):
+		sql = "SELECT location FROM sensors"
+		self.cursor.execute(sql)
+		rooms = []
+		row = self.cursor.fetchone()
+		while row is not None:
+			rooms.append(row[0])
+			row = self.cursor.fetchone()
+		return rooms
+
 	def select_measures_between(self, pi, sensor, date1, date2):
 		sql = "SELECT * FROM measures WHERE controller ILIKE %s AND id = %s AND date BETWEEN %s AND %s"
 		self.cursor.execute(sql, (pi, sensor, date1, date2))
