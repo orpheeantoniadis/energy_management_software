@@ -68,6 +68,11 @@ curl -i http://localhost:5000/Pi%201/sensors_list
     "location": "A502"
   }
 ]
+
+@apiError ControllerNotFound The <code>name</code> of the Controller was not found.
+
+@apiErrorExample {json} Error-Response:
+Sorry, wrong controller !
 """
 @app.route('/<string:controller>/sensors_list', methods=['GET'])
 def get_all_sensors(controller):
@@ -106,6 +111,12 @@ curl -i http://localhost:5000/Pi%201/2/last_measures
     "temperature": 23
   }
 ]
+
+@apiError ControllerNotFound The <code>name</code> of the Controller was not found.
+@apiError SensorNotFound The <code>id</code> of the Sensor was not found.
+
+@apiErrorExample {json} Error-Response:
+Sorry, wrong sensor !
 """
 @app.route('/<string:controller>/<int:sensor>/last_measures', methods=['GET'])
 def get_last_measures(controller, sensor):
@@ -136,6 +147,12 @@ curl -i http://localhost:5000/A432/average/5
     "temperature": 27.4
   }
 ]
+
+@apiError RoomNotFound The <code>id</code> of the Room was not found.
+@apiError TooMuchMeasures The number of measures to take is bigger than the total of measures.
+
+@apiErrorExample {json} Error-Response:
+Sorry, there is just 42 measures for this room
 """
 @app.route('/<string:room_id>/average/<int:x>', methods=['GET'])
 def get_room_avg(room_id, x):
@@ -196,6 +213,11 @@ curl -i http://localhost:5000/Pi%201/2/2017-11-15%2008:24:30/2017-11-15%2009:36:
     "temperature": 22
   }
 ]
+@apiError ControllerNotFound The <code>name</code> of the Controller was not found.
+@apiError SensorNotFound The <code>id</code> of the Sensor was not found.
+
+@apiErrorExample {json} Error-Response:
+Sorry, wrong sensor !
 """
 @app.route('/<string:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])
 def get_measures_between(controller, sensor, date1, date2):
