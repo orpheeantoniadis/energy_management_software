@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from flask import *
+from flask_restful import *
+from flask import render_template
 from database import *
 from configparser import ConfigParser
 
 app = Flask(__name__)
+api = Api(app)
 
 @app.route('/controllers_list', methods=['GET'])
 def get_all_controllers():
@@ -13,7 +16,17 @@ def get_all_controllers():
 
 @app.route('/<string:controller>/sensors_list', methods=['GET'])
 def get_all_sensors(controller):
-	return jsonify(db.select_all_sensors(controller))
+	flag = False
+	# check if <controller> exists
+	controllers = db.select_all_controllers()
+	for cont in controllers:
+		if cont.get('name') == controller:
+			flag = True
+
+	if flag == True:
+		return jsonify(db.select_all_sensors(controller))
+
+	return 'Sorry, wrong controller !'
 
 """
 @api {get} /:controller/:sensor/last_measures Sensor Last Measures
@@ -76,6 +89,7 @@ def get_room_avg(room_id, x):
 def get_measures_between(controller, sensor, date1, date2):
 	return jsonify(db.select_measures_between(controller, sensor, date1, date2))
 
+
 if __name__ == '__main__':
 	db = database()
 	parser = ConfigParser()
@@ -85,4 +99,5 @@ if __name__ == '__main__':
 		ip = params[0]
 	else:
 		raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+	#api = Api(app, errors=errors)
 	app.run(debug=True,host=ip[1])
