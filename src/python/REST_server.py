@@ -3,6 +3,7 @@
 
 from flask import *
 from database import *
+from configparser import ConfigParser
 
 app = Flask(__name__)
 
@@ -77,4 +78,11 @@ def get_measures_between(controller, sensor, date1, date2):
 
 if __name__ == '__main__':
 	db = database()
-	app.run(debug=True,host="192.168.0.22")
+	parser = ConfigParser()
+	parser.read('rest_server.ini')
+	if parser.has_section('rest_server'):
+		params = parser.items('rest_server')
+		ip = params[0]
+	else:
+		raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+	app.run(debug=True,host=ip[1])
