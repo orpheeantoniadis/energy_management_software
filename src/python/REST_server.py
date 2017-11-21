@@ -82,6 +82,16 @@ def get_last_measures(controller, sensor):
 """
 @app.route('/<string:room_id>/average/<int:x>', methods=['GET'])
 def get_room_avg(room_id, x):
+	flag = False
+	rooms = db.select_all_rooms()
+	for room in rooms:
+		if room == room_id:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong room !'
+	nbr = db.select_nbr_measures_room(room_id)
+	if x > nbr:
+		return 'Sorry, there is just '+str(nbr)+' measures for this room'
 	return jsonify(db.select_room_avg(room_id, x))
 
 """
@@ -105,6 +115,24 @@ def get_room_avg(room_id, x):
 """
 @app.route('/<string:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])
 def get_measures_between(controller, sensor, date1, date2):
+	flag = False
+	# check if controller exists
+	controllers = db.select_all_controllers()
+	for cont in controllers:
+		if cont.get('name') == controller:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong controller !'
+
+	# check if the sensor exists
+	flag = False
+	sensors = db.select_all_sensors(controller)
+	for sens in sensors:
+		if sens.get('id') == sensor:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong sensor !'
+	
 	return jsonify(db.select_measures_between(controller, sensor, date1, date2))
 
 
