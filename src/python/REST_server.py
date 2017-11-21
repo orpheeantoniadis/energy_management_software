@@ -47,6 +47,24 @@ def get_all_sensors(controller):
 """
 @app.route('/<string:controller>/<int:sensor>/last_measures', methods=['GET'])
 def get_last_measures(controller, sensor):
+	flag = False
+	# check if controller exists
+	controllers = db.select_all_controllers()
+	for cont in controllers:
+		if cont.get('name') == controller:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong controller !'
+
+	# check if the sensor exists
+	flag = False
+	sensors = db.select_all_sensors(controller)
+	for sens in sensors:
+		if sens.get('id') == sensor:
+			flag = True
+	if flag == False:
+		return 'Sorry, wrong sensor !'
+
 	return jsonify(db.select_last_measures(controller, sensor))
 
 """

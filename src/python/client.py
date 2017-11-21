@@ -29,10 +29,6 @@ if __name__ == '__main__':
 		db.insert_pi(pi)
 		for sensor in pi.sensors_list:
 			db.insert_sensor(sensor)
-'''
-	for pi in pi_list:
-		for sensor in pi.sensors_list:
-			db.insert_measures(sensor)	'''
 
 	# to execute every ~4min
 	while True:
