@@ -1,16 +1,13 @@
 var express = require('express');
 var session = require('express-session');
-var parseurl = require('parseurl')
+var parseurl = require('parseurl');
 var bodyParser = require('body-parser');
 var Client = require('node-rest-client').Client;
 
+var tools = require('./rest-tools');
+
 var app = express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-
-var controllers = [];
-var sensors = [];
-var controllerSel;
-var sensorSel;
 
 app.use(session({
   secret: 'secretkey',
@@ -24,44 +21,6 @@ app.use(session({
 
 .use(express.static(__dirname + '/../apidoc'))
 
-// initialisation des variables de la session
-.use(function(req, res, next) {
-	if (typeof(req.session.controllers) == 'undefined') {
-		req.session.controllers = [];
-	} else if (req.session.controllers.length == 0) {
-		req.session.controllers = controllers;
-		req.session.controllerSel = controllerSel;
-	} else if (typeof(req.session.sensors) == 'undefined') {
-		req.session.sensors = [];
-	} else if (req.session.sensors.length == 0) {
-		req.session.sensors = sensors;
-		req.session.sensorSel = sensorSel;
-	} else if (typeof(req.session.datarangeMode) == 'undefined') {
-		req.session.datarangeMode = false;
-	} else if (typeof(req.session.datarange) == 'undefined') {
-		req.session.datarange = [];
-	}
-	next();
-})
-
-.use(function(req, res, next) {
-	if (controllers.length == 0) {
-		var client = new Client();
-		client.registerMethod("jsonMethod", "http://localhost:5000/controllers_list", "GET");
-		client.methods.jsonMethod(function (data, response) {
-			controllers = Array.from(data);
-			controllerSel = controllers[0].name;
-			var client = new Client();
-			client.registerMethod("jsonMethod", "http://localhost:5000/"+controllers[0].name+"/sensors_list", "GET");
-			client.methods.jsonMethod(function (data, response) {
-				sensors = Array.from(data);
-				sensorSel = sensors[0].id;
-			});
-		});
-	}
-	next();
-})
-
 .get('/', function(req, res) {
 	res.render('pages/index.ejs', {url : parseurl(req).pathname});
 })
@@ -69,31 +28,9 @@ app.use(session({
 .get('/sensors', function(req, res) {
 	var client = new Client();
 	if (!req.session.datarangeMode) {
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
-		"/"+req.session.sensorSel+"/last_measures", "GET");
-		client.methods.jsonMethod(function (data, response) {
-			res.render('pages/sensors.ejs', {
-				url:  parseurl(req).pathname,
-				controllers: req.session.controllers,
-				sensors: req.session.sensors,
-				controllerSel: req.session.controllerSel,
-				sensorSel: req.session.sensorSel,
-				measures: data
-			});
-		});
+		tools.getLastMeasures(req, res);
 	} else {
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
-		"/"+req.session.sensorSel+"/"+req.session.datarange[0]+"/"+req.session.datarange[1], "GET");
-		client.methods.jsonMethod(function (data, response) {
-			res.render('pages/sensors.ejs', {
-				url:  parseurl(req).pathname, 
-				controllers: req.session.controllers,
-				sensors: req.session.sensors,
-				controllerSel: req.session.controllerSel,
-				sensorSel: req.session.sensorSel,
-				measures: data
-			});
-		});
+		tools.getMeasuresBetween(req, res);
 	}
 })
 
