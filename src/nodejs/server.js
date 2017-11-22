@@ -2,8 +2,6 @@ var express = require('express');
 var session = require('express-session');
 var parseurl = require('parseurl');
 var bodyParser = require('body-parser');
-var Client = require('node-rest-client').Client;
-
 var tools = require('./rest-tools');
 
 var app = express();
@@ -26,7 +24,6 @@ app.use(session({
 })
 
 .get('/sensors', function(req, res) {
-	var client = new Client();
 	if (!req.session.datarangeMode) {
 		tools.getLastMeasures(req, res);
 	} else {
@@ -37,20 +34,12 @@ app.use(session({
 .post('/sensors/selection', urlencodedParser, function(req, res) {
 	req.session.datarangeMode = false;
 	if (req.session.controllerSel != req.body.controller) {
-		var client = new Client();
-		req.session.controllerSel = req.body.controller;
-		client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
-		"/sensors_list", "GET");
-		client.methods.jsonMethod(function (data, response) {
-			req.session.sensors = Array.from(data);
-			req.session.sensorSel = req.session.sensors[0].id;
-			res.redirect('/sensors');
-		});
+		req.session.sensorSel = undefined;
 	} else {
-		req.session.controllerSel = req.body.controller;
 		req.session.sensorSel = req.body.sensor;
-		res.redirect('/sensors');
 	}
+	req.session.controllerSel = req.body.controller;
+	res.redirect('/sensors');
 })
 
 .post('/sensors/daterange', urlencodedParser, function(req, res) {

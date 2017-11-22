@@ -7,7 +7,8 @@ module.exports = {
 		async.series([
 		  function (callback) {
 				var client = new Client();
-				client.registerMethod("jsonMethod", "http://localhost:5000/controllers_list", "GET");
+				var url = "http://localhost:5000/controllers_list";
+				client.registerMethod("jsonMethod", url, "GET");
 				client.methods.jsonMethod(function (data, response) {
 					req.session.controllers = Array.from(data);
 					if (typeof(req.session.controllerSel) == 'undefined') {
@@ -18,7 +19,8 @@ module.exports = {
 		  },
 		  function (callback) {
 				var client = new Client();
-				client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+"/sensors_list", "GET");
+				var url = "http://localhost:5000/"+req.session.controllerSel+"/sensors_list";
+				client.registerMethod("jsonMethod", url, "GET");
 				client.methods.jsonMethod(function (data, response) {
 					req.session.sensors = Array.from(data);
 					if (typeof(req.session.sensorSel) == 'undefined') {
@@ -29,7 +31,8 @@ module.exports = {
 		  },
 			function (callback) {
 				var client = new Client();
-				client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+"/"+req.session.sensorSel+"/last_measures", "GET");
+				var url = "http://localhost:5000/"+req.session.controllerSel+"/"+req.session.sensorSel+"/last_measures";
+				client.registerMethod("jsonMethod", url, "GET");
 				client.methods.jsonMethod(function (data, response) {
 					callback(null, data);
 				});
@@ -51,7 +54,8 @@ module.exports = {
 		async.series([
 		  function (callback) {
 				var client = new Client();
-				client.registerMethod("jsonMethod", "http://localhost:5000/controllers_list", "GET");
+				var url = "http://localhost:5000/controllers_list";
+				client.registerMethod("jsonMethod", url, "GET");
 				client.methods.jsonMethod(function (data, response) {
 					req.session.controllers = Array.from(data);
 					if (typeof(req.session.controllerSel) == 'undefined') {
@@ -62,7 +66,8 @@ module.exports = {
 		  },
 		  function (callback) {
 				var client = new Client();
-				client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+"/sensors_list", "GET");
+				var url = "http://localhost:5000/"+req.session.controllerSel+"/sensors_list";
+				client.registerMethod("jsonMethod", url, "GET");
 				client.methods.jsonMethod(function (data, response) {
 					req.session.sensors = Array.from(data);
 					if (typeof(req.session.sensorSel) == 'undefined') {
@@ -73,8 +78,9 @@ module.exports = {
 		  },
 			function (callback) {
 				var client = new Client();
-				client.registerMethod("jsonMethod", "http://localhost:5000/"+req.session.controllerSel+
-				"/"+req.session.sensorSel+"/"+req.session.datarange[0]+"/"+req.session.datarange[1], "GET");
+				var url = "http://localhost:5000/"+req.session.controllerSel+"/"
+				+req.session.sensorSel+"/"+req.session.datarange[0]+"/"+req.session.datarange[1]
+				client.registerMethod("jsonMethod", url, "GET");
 				client.methods.jsonMethod(function (data, response) {
 					callback(null, data);
 				});
