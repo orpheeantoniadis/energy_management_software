@@ -73,7 +73,9 @@ curl -i http://localhost:5000/Pi%201/sensors_list
 @apiError ControllerNotFound The <code>name</code> of the Controller was not found.
 
 @apiErrorExample {json} Error-Response:
-Sorry, wrong controller !
+{
+      "error": "ControllerNotFound"
+}
 """
 @app.route('/<string:controller>/sensors_list', methods=['GET'])
 def get_all_sensors(controller):
@@ -87,7 +89,7 @@ def get_all_sensors(controller):
 	if flag == True:
 		return jsonify(db.select_all_sensors(controller))
 
-	return 'Sorry, wrong controller !'
+	return jsonify({'error':'ControllerNotFound'})
 
 """
 @api {get} /:controller/:sensor/last_measures Sensor Last Measures
@@ -127,29 +129,35 @@ curl -i http://localhost:5000/Pi%201/2/last_measures
 @apiError SensorNotFound The <code>id</code> of the Sensor was not found.
 
 @apiErrorExample {json} Error-Response:
-Sorry, wrong sensor !
+{
+      "error": "ControllerNotFound"
+}
+@apiErrorExample {json} Error-Response:
+{
+      "error": "SensorNotFound"
+}
 """
 @app.route('/<string:controller>/<int:sensor>/last_measures', methods=['GET'])
 def get_last_measures(controller, sensor):
-	flag = False
-	# check if controller exists
-	controllers = db.select_all_controllers()
-	for cont in controllers:
-		if cont.get('name') == controller:
-			flag = True
-	if flag == False:
-		return 'Sorry, wrong controller !'
+    flag = False
+    # check if controller exists
+    controllers = db.select_all_controllers()
+    for cont in controllers:
+        if cont.get('name') == controller:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'ControllerNotFound'})
 
-	# check if the sensor exists
-	flag = False
-	sensors = db.select_all_sensors(controller)
-	for sens in sensors:
-		if sens.get('id') == sensor:
-			flag = True
-	if flag == False:
-		return 'Sorry, wrong sensor !'
+    # check if the sensor exists
+    flag = False
+    sensors = db.select_all_sensors(controller)
+    for sens in sensors:
+        if sens.get('id') == sensor:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'SensorNotFound'})
 
-	return jsonify(db.select_last_measures(controller, sensor))
+    return jsonify(db.select_last_measures(controller, sensor))
 
 """
 @api {get} /:room_id/average/:x Room Average x Measures
@@ -181,21 +189,35 @@ curl -i http://localhost:5000/A432/average/5
 @apiError TooMuchMeasures The number of measures to take is bigger than the total of measures.
 
 @apiErrorExample {json} Error-Response:
-Sorry, there is just 42 measures for this room
+{
+      "error": "RoomNotFound"
+}
+@apiErrorExample {json} Error-Response:
+[
+    {
+        "error": "TooMuchMeasures"
+    },
+    {
+        "number": nbr_of_measures <integer>
+    }
+]
 """
 @app.route('/<string:room_id>/average/<int:x>', methods=['GET'])
 def get_room_avg(room_id, x):
-	flag = False
-	rooms = db.select_all_rooms()
-	for room in rooms:
-		if room == room_id:
-			flag = True
-	if flag == False:
-		return 'Sorry, wrong room !'
-	nbr = db.select_nbr_measures_room(room_id)
-	if x > nbr:
-		return 'Sorry, there is just '+str(nbr)+' measures for this room'
-	return jsonify(db.select_room_avg(room_id, x))
+    flag = False
+    rooms = db.select_all_rooms()
+    for room in rooms:
+        if room == room_id:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'RoomNotFound'})
+    nbr = db.select_nbr_measures_room(room_id)
+    if x > nbr:
+        err = []
+        err.append({'error':'TooMuchMeasures'})
+        err.append({'number':nbr})
+        return jsonify(err)
+    return jsonify(db.select_room_avg(room_id, x))
 
 """
 @api {get} /:controller/:sensor/:date1/:date2 Measures Between 2 Dates
@@ -256,29 +278,35 @@ curl -i http://localhost:5000/Pi%201/2/2017-11-15%2008:24:30/2017-11-15%2009:36:
 @apiError SensorNotFound The <code>id</code> of the Sensor was not found.
 
 @apiErrorExample {json} Error-Response:
-Sorry, wrong sensor !
+{
+      "error": "ControllerNotFound"
+}
+@apiErrorExample {json} Error-Response:
+{
+      "error": "SensorNotFound"
+}
 """
 @app.route('/<string:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])
 def get_measures_between(controller, sensor, date1, date2):
-	flag = False
-	# check if controller exists
-	controllers = db.select_all_controllers()
-	for cont in controllers:
-		if cont.get('name') == controller:
-			flag = True
-	if flag == False:
-		return 'Sorry, wrong controller !'
+    flag = False
+    # check if controller exists
+    controllers = db.select_all_controllers()
+    for cont in controllers:
+        if cont.get('name') == controller:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'ControllerNotFound'})
 
-	# check if the sensor exists
-	flag = False
-	sensors = db.select_all_sensors(controller)
-	for sens in sensors:
-		if sens.get('id') == sensor:
-			flag = True
-	if flag == False:
-		return 'Sorry, wrong sensor !'
+    # check if the sensor exists
+    flag = False
+    sensors = db.select_all_sensors(controller)
+    for sens in sensors:
+        if sens.get('id') == sensor:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'SensorNotFound'})
 
-	return jsonify(db.select_measures_between(controller, sensor, date1, date2))
+    return jsonify(db.select_measures_between(controller, sensor, date1, date2))
 
 if __name__ == '__main__':
 	db = database()
