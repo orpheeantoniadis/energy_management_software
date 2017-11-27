@@ -185,6 +185,41 @@ def get_last_measures(controller, sensor):
         return jsonify({'error':'SensorNotFound'})
 
     return jsonify(db.select_last_measures(controller, sensor))
+"""
+@api {get} /:room_id/nbMeasures Room Number of Measures
+@apiName GetRoomNbMeasures
+@apiGroup RoomMeasures
+
+@apiExample {curl} Example usage:
+curl -i http://localhost:5000/A432/nbMeasures
+
+@apiParam {int} room Room id
+
+@apiSuccess {int} nbMeasures Number of measures
+
+@apiSuccessExample {json} Success-Response:
+{
+  "nbMeasures": 234
+}
+
+@apiError RoomNotFound The <code>id</code> of the Room was not found.
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "RoomNotFound"
+}
+
+"""
+@app.route('/<string:room_id>/nbMeasures', methods=['GET'])
+def get_room_nbMeasures(room_id):
+    flag = False
+    rooms = db.select_all_rooms()
+    for room in rooms:
+        if room == room_id:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'RoomNotFound'})
+    return jsonify({'nbMeasures':db.select_nbr_measures_room(room_id)})
 
 """
 @api {get} /:room_id/average/:x Room Average x Measures
@@ -203,14 +238,12 @@ curl -i http://localhost:5000/A432/average/5
 @apiSuccess {float} temperature  Temperature average in a room
 
 @apiSuccessExample {json} Success-Response:
-[
-  {
-    "humidity": 20.0,
-    "luminance": 130.4,
-    "room": "A432",
-    "temperature": 27.4
-  }
-]
+{
+"humidity": 20.0,
+"luminance": 130.4,
+"room": "A432",
+"temperature": 27.4
+}
 
 @apiError RoomNotFound The <code>id</code> of the Room was not found.
 @apiError TooMuchMeasures The number of measures to take is bigger than the total of measures.

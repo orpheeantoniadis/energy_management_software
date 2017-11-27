@@ -111,13 +111,36 @@ module.exports = {
 					}
 					callback(null, data);
 				});
+		  },
+			function (callback) {
+				var client = new Client();
+				var url = "http://localhost:5000/"+req.session.roomSel+"/nbMeasures";
+				client.registerMethod("jsonMethod", url, "GET");
+				client.methods.jsonMethod(function (data, response) {
+					req.session.nbMeasures = data.nbMeasures;
+					if (typeof(req.session.nbMeasuresSel) == 'undefined') {
+						req.session.nbMeasuresSel = 1;
+					}
+					callback(null, data);
+				});
+		  },
+			function (callback) {
+				var client = new Client();
+				var url = "http://localhost:5000/"+req.session.roomSel+"/average/"+req.session.nbMeasuresSel;
+				client.registerMethod("jsonMethod", url, "GET");
+				client.methods.jsonMethod(function (data, response) {
+					callback(null, data);
+				});
 		  }
 		],
 		function (err, result) {
 			res.render('pages/rooms.ejs', {
 				url:  parseurl(req).pathname,
 				rooms: req.session.rooms,
-				roomSel: req.session.roomSel
+				roomSel: req.session.roomSel,
+				nbMeasures: req.session.nbMeasures,
+				nbMeasuresSel: req.session.nbMeasuresSel,
+				measures: result[2]
 			});
 		});
 	}

@@ -69,12 +69,12 @@ class database(object):
 		"WHERE s.location ILIKE %s ORDER BY date DESC LIMIT %s) l GROUP BY location"
 		self.cursor.execute(sql, (room, x))
 		row = self.cursor.fetchone()
-		measures = [{'room':row[0], 'humidity':float(row[1]), 'luminance':float(row[2]),\
-		'temperature':float(row[3])}]
+		measures = {'room':row[0], 'humidity':float(row[1]), 'luminance':float(row[2]),\
+		'temperature':float(row[3])}
 		return measures
 
 	def select_nbr_measures_room(self,room):
-		sql = "SELECT count(*) FROM sensors join measures on sensors.id = "+\
+		sql = "SELECT count(*) FROM sensors JOIN measures ON sensors.id = "+\
 		"measures.id where location like '" + room +"'"
 		self.cursor.execute(sql)
 		row = self.cursor.fetchone()

@@ -53,6 +53,11 @@ app.use(session({
 })
 
 .post('/rooms/selection', urlencodedParser, function(req, res) {
+	if (req.session.roomSel != req.body.room) {
+		req.session.nbMeasuresSel = undefined;
+	} else {
+		req.session.nbMeasuresSel = req.body.nbMeasures;
+	}
 	req.session.roomSel = req.body.room;
 	res.redirect('/rooms');
 })
