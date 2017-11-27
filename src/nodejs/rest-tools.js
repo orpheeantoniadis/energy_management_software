@@ -96,5 +96,29 @@ module.exports = {
 				measures: result[2]
 			});
 		});
-  }
+  },
+	
+	getRoomAvg: function(req, res) {
+		async.series([
+		  function (callback) {
+				var client = new Client();
+				var url = "http://localhost:5000/rooms_list";
+				client.registerMethod("jsonMethod", url, "GET");
+				client.methods.jsonMethod(function (data, response) {
+					req.session.rooms = data.rooms;
+					if (typeof(req.session.roomSel) == 'undefined') {
+						req.session.roomSel = req.session.rooms[0];
+					}
+					callback(null, data);
+				});
+		  }
+		],
+		function (err, result) {
+			res.render('pages/rooms.ejs', {
+				url:  parseurl(req).pathname,
+				rooms: req.session.rooms,
+				roomSel: req.session.roomSel
+			});
+		});
+	}
 };

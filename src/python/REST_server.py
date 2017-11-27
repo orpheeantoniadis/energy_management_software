@@ -92,6 +92,33 @@ def get_all_sensors(controller):
 	return jsonify({'error':'ControllerNotFound'})
 
 """
+@api {get} /rooms_list Rooms List
+@apiName GetRoomsList
+@apiGroup General
+
+@apiExample {curl} Example usage:
+curl -i http://localhost:5000/rooms_list
+
+@apiSuccess {str[]} rooms Array of room ids
+
+@apiSuccessExample {json} Success-Response:
+{
+  "rooms": [
+    "A400", 
+    "A401", 
+    "A402", 
+    "A403", 
+    "A404", 
+    "A406", 
+    "A432"
+  ]
+}
+"""
+@app.route('/rooms_list', methods=['GET'])
+def get_all_rooms():
+	return jsonify({'rooms':db.select_all_rooms()})
+
+"""
 @api {get} /:controller/:sensor/last_measures Sensor Last Measures
 @apiName GetSensorLastMeasures
 @apiGroup SensorsMeasures
@@ -130,11 +157,11 @@ curl -i http://localhost:5000/Pi%201/2/last_measures
 
 @apiErrorExample {json} Error-Response:
 {
-      "error": "ControllerNotFound"
+	"error": "ControllerNotFound"
 }
 @apiErrorExample {json} Error-Response:
 {
-      "error": "SensorNotFound"
+	"error": "SensorNotFound"
 }
 """
 @app.route('/<string:controller>/<int:sensor>/last_measures', methods=['GET'])
@@ -190,17 +217,14 @@ curl -i http://localhost:5000/A432/average/5
 
 @apiErrorExample {json} Error-Response:
 {
-      "error": "RoomNotFound"
+    "error": "RoomNotFound"
 }
 @apiErrorExample {json} Error-Response:
-[
-    {
-        "error": "TooMuchMeasures"
-    },
-    {
-        "number": nbr_of_measures <integer>
-    }
-]
+{
+  "error": "TooMuchMeasures", 
+  "max": 234
+}
+
 """
 @app.route('/<string:room_id>/average/<int:x>', methods=['GET'])
 def get_room_avg(room_id, x):
@@ -213,10 +237,7 @@ def get_room_avg(room_id, x):
         return jsonify({'error':'RoomNotFound'})
     nbr = db.select_nbr_measures_room(room_id)
     if x > nbr:
-        err = []
-        err.append({'error':'TooMuchMeasures'})
-        err.append({'number':nbr})
-        return jsonify(err)
+        return jsonify({'error':'TooMuchMeasures', 'max':nbr})
     return jsonify(db.select_room_avg(room_id, x))
 
 """
@@ -279,11 +300,11 @@ curl -i http://localhost:5000/Pi%201/2/2017-11-15%2008:24:30/2017-11-15%2009:36:
 
 @apiErrorExample {json} Error-Response:
 {
-      "error": "ControllerNotFound"
+	"error": "ControllerNotFound"
 }
 @apiErrorExample {json} Error-Response:
 {
-      "error": "SensorNotFound"
+	"error": "SensorNotFound"
 }
 """
 @app.route('/<string:controller>/<int:sensor>/<string:date1>/<string:date2>', methods=['GET'])

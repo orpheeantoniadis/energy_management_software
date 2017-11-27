@@ -1,45 +1,39 @@
 <!-- views/partials/menu.ejs -->
 
-<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-	<ul class="nav nav-pills flex-column">
-		<li class="nav-item">
-			<a
-				<% if(url == "/"){ %>
-					class="nav-link active"
-				<% } else { %>
-					class="nav-link"
-				<% } %>
-				href="/">Overview
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+		<li 
+			<% if(url == "/"){ %>
+				class="active"
+			<% } %>
+		>
+			<a href="/">Overview
 				<% if(url == "/"){ %>
 					<span class="sr-only">(current)</span>
 				<% } %>
 			</a>
 		</li>
-		<li class="nav-item">
-			<a
-				<% if(url == "/sensors"){ %>
-					class="nav-link active"
-				<% } else { %>
-					class="nav-link"
-				<% } %>
-				href="/sensors">Sensors
+		<li 
+			<% if(url == "/sensors"){ %>
+				class="active"
+			<% } %>
+		>
+			<a href="/sensors">Sensors
 				<% if(url == "/sensors"){ %>
 					<span class="sr-only">(current)</span>
 				<% } %>
 			</a>
 		</li>
-		<li class="nav-item">
-			<a
-				<% if(url == "/rooms"){ %>
-					class="nav-link active"
-				<% } else { %>
-					class="nav-link"
-				<% } %>
-				href="/rooms">Rooms
+		<li 
+			<% if(url == "/rooms"){ %>
+				class="active"
+			<% } %>
+		/>
+			<a href="/rooms">Rooms
 				<% if(url == "/rooms"){ %>
 					<span class="sr-only">(current)</span>
 				<% } %>
 			</a>
 		</li>
-	</ul>
-</nav>
+  </ul>
+</div>

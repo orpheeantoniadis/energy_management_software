@@ -49,7 +49,12 @@ app.use(session({
 })
 
 .get('/rooms', function(req, res) {
-	res.render('pages/rooms.ejs', {url : parseurl(req).pathname});
+	tools.getRoomAvg(req, res);
+})
+
+.post('/rooms/selection', urlencodedParser, function(req, res) {
+	req.session.roomSel = req.body.room;
+	res.redirect('/rooms');
 })
 
 .get('/test', function(req, res) {

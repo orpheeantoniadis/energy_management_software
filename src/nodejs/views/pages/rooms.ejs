@@ -10,9 +10,38 @@
 		<div class="container-fluid">
       <div class="row">
 				<% include ../partials/menu %>
-        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Rooms</h1>
-        </main>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Rooms</h1>
+					<form class="form-horizontal col-lg-6">
+					  <div class="form-group">
+							<label for="room">Select the room :</label>
+							<select name="room" id="room" onchange="form.submit()">
+								<% rooms.forEach(function(room, index) { %>
+								<option 
+									value="<%= room %>"
+									<% if(roomSel == room){ %>
+										selected
+									<% } %>>
+									<%= room %>
+								</option>
+								<% }); %>
+							</select>
+					  </div>
+					  <div class="form-group">
+							<input
+						    type="text"
+						    id="slider"
+								data-provide="slider"
+								data-slider-id="slider"
+								data-slider-tooltip='show'
+								data-slider-min="1"
+								data-slider-max="5"
+								data-slider-step="1"
+								data-slider-value="1"
+							/>
+					  </div>
+					</form>
+        </div>
       </div>
     </div>
     <% include ../partials/footer %>

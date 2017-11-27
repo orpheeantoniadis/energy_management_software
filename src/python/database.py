@@ -81,7 +81,7 @@ class database(object):
 		return row[0]
 
 	def select_all_rooms(self):
-		sql = "SELECT location FROM sensors"
+		sql = "SELECT location FROM sensors GROUP BY location ORDER BY location ASC"
 		self.cursor.execute(sql)
 		rooms = []
 		row = self.cursor.fetchone()

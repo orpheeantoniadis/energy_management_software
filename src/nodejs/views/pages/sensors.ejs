@@ -10,8 +10,8 @@
 		<div class="container-fluid">
       <div class="row">
 				<% include ../partials/menu %>
-				<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-					<h1>Sensors</h1>
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<h1 class="page-header">Sensors</h1>
 					<form method="post" action="/sensors/selection/">
 						<label for="pseudo">Select the sensor :</label>
 						<select name="controller" id="controller" onchange="form.submit()">
@@ -97,7 +97,7 @@
               </tbody>
             </table>
           </div>
-				</main>
+				</div>
 			</div>
     </div><!-- /.container -->
     <% include ../partials/footer %>
