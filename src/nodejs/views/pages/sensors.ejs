@@ -12,91 +12,97 @@
 				<% include ../partials/menu %>
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					<h1 class="page-header">Sensors</h1>
-					<form method="post" action="/sensors/selection/">
-						<label for="pseudo">Select the sensor :</label>
-						<select name="controller" id="controller" onchange="form.submit()">
-							<% controllers.forEach(function(controller, index) { %>
-							<option 
-								value="<%= controller.name %>"
-								<% if(controllerSel == controller.name){ %>
-									selected
-								<% } %>>
-								<%= controller.name %>
-							</option>
-							<% }); %>
-						</select>
-						<select name="sensor" id="sensor" onchange="form.submit()">
-							<% sensors.forEach(function(sensor, index) { %>
-							<option 
-								value="<%= sensor.id %>"
-								<% if(sensorSel == sensor.id){ %>
-									selected
-								<% } %>>
-								<%= sensor.id %>
-							</option>
-							<% }); %>
-						</select>
-					</form>
-					<div class="input-group">   
-					  <div class="form-group">
-							<form id="formDaterange" method="post" action="/sensors/daterange/">
-						    <div class="input-group">
-									<span class="input-group-addon">
-						        <input type="checkbox"
-											onclick="document.getElementById('daterange').disabled=!this.checked;">
-						      </span>
-						      <input class="form-control" id="daterange" name="daterange"
-										type="text" placeholder="Ex : 08-11-2017 - 15-11-2017" disabled/>
-									<span class="input-group-addon">
-										<i class="fa fa-calendar" aria-hidden="true"></i>
-									</span>
-						    </div>
-							</form>
-					  </div>
-					</div>
-					<h2>Measures</h2>
-        	<canvas id="line-chart"></canvas>
-					<script>
-						var date = [];
-						var temperature = [];
-						var humidity = [];
-						var luminance = [];
-						var battery = [];
-						<% measures.forEach(function(measure, index) { %>
-							date.push("<%= measures[index].date %>");
-							temperature.push(<%= measures[index].temperature %>)
-							humidity.push(<%= measures[index].humidity %>)
-							luminance.push(<%= measures[index].luminance %>)
-							battery.push(<%= measures[index].battery %>)
-						<% }); %>
-						display_chart(date, temperature, humidity, luminance, battery);
-					</script>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-									<th>date</th>
-                  <th>temperature</th>
-                  <th>humidity</th>
-                  <th>luminance</th>
-                  <th>battery</th>
-                  <th>motion</th>
-                </tr>
-              </thead>
-              <tbody>
-								<% measures.forEach(function(measure, index) { %>
-                <tr>
-                  <td><%= measures[index].date %></td>
-                  <td><%= measures[index].temperature %></td>
-                  <td><%= measures[index].humidity %></td>
-                  <td><%= measures[index].luminance %></td>
-                  <td><%= measures[index].battery %></td>
-									<td><%= measures[index].motion %></td>
-                </tr>
+					<div class="form-horizontal col-lg-4">
+						<h2>Selection</h2>
+						<form method="post" action="/sensors/selection/">
+							<label for="pseudo">Select the sensor :</label>
+							<select name="controller" id="controller" onchange="form.submit()">
+								<% controllers.forEach(function(controller, index) { %>
+								<option 
+									value="<%= controller.name %>"
+									<% if(controllerSel == controller.name){ %>
+										selected
+									<% } %>>
+									<%= controller.name %>
+								</option>
 								<% }); %>
-              </tbody>
-            </table>
-          </div>
+							</select>
+							<select name="sensor" id="sensor" onchange="form.submit()">
+								<% sensors.forEach(function(sensor, index) { %>
+								<option 
+									value="<%= sensor.id %>"
+									<% if(sensorSel == sensor.id){ %>
+										selected
+									<% } %>>
+									<%= sensor.id %>
+								</option>
+								<% }); %>
+							</select>
+						</form>
+						<div class="input-group">   
+						  <div class="form-group">
+								<form id="formDaterange" method="post" action="/sensors/daterange/">
+							    <div class="input-group">
+										<span class="input-group-addon">
+							        <input type="checkbox"
+												onclick="document.getElementById('daterange').disabled=!this.checked;">
+							      </span>
+							      <input class="form-control" id="daterange" name="daterange"
+											type="text" placeholder="Ex : 08-11-2017 - 15-11-2017" disabled/>
+										<span class="input-group-addon">
+											<i class="fa fa-calendar" aria-hidden="true"></i>
+										</span>
+							    </div>
+								</form>
+						  </div>
+						</div>
+					</div>
+					<div class="form-horizontal col-lg-8">
+						<h2>Last Measures</h2>
+	          <div class="table-responsive">
+	            <table class="table table-striped">
+	              <thead>
+	                <tr>
+										<th>date</th>
+	                  <th>temperature</th>
+	                  <th>humidity</th>
+	                  <th>luminance</th>
+	                  <th>battery</th>
+	                  <th>motion</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td><%= measures[measures.length-1].date %></td>
+	                  <td><%= measures[measures.length-1].temperature %></td>
+	                  <td><%= measures[measures.length-1].humidity %></td>
+	                  <td><%= measures[measures.length-1].luminance %></td>
+	                  <td><%= measures[measures.length-1].battery %></td>
+										<td><%= measures[measures.length-1].motion %></td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+					</div>
+					<div class="form-horizontal col-lg-12">
+						<h2>Measures Chart</h2>
+	        	<canvas id="line-chart"></canvas>
+						<script>
+							var date = [];
+							var temperature = [];
+							var humidity = [];
+							var luminance = [];
+							var battery = [];
+							<% measures.forEach(function(measure, index) { %>
+								date.push("<%= measures[index].date %>");
+								temperature.push(<%= measures[index].temperature %>)
+								humidity.push(<%= measures[index].humidity %>)
+								luminance.push(<%= measures[index].luminance %>)
+								battery.push(<%= measures[index].battery %>)
+							<% }); %>
+							display_chart(date, temperature, humidity, luminance, battery);
+						</script>
+					</div>
 				</div>
 			</div>
     </div><!-- /.container -->

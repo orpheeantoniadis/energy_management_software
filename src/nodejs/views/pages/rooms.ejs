@@ -14,34 +14,31 @@
           <h1 class="page-header">Rooms</h1>
 					<form id="rooms" class="form-horizontal col-lg-6" method="post" action="/rooms/selection"/>
 					<h2>Selection</h2>
-					  <div class="form-group">
-							<label for="room">Select the room :</label>
-							<select name="room" id="room" onchange="form.submit()">
-								<% rooms.forEach(function(room, index) { %>
-								<option 
-									value="<%= room %>"
-									<% if(roomSel == room){ %>
-										selected
-									<% } %>>
-									<%= room %>
-								</option>
-								<% }); %>
-							</select>
-					  </div>
-					  <div class="form-group">
-							<input
-						    type="text"
-								name="nbMeasures"
-						    id="nbMeasures"
-								data-provide="slider"
-								data-slider-id="slider"
-								data-slider-min="1"
-								data-slider-max="<%= nbMeasures %>"
-								data-slider-step="1"
-								data-slider-value="<%= nbMeasuresSel %>"
-							/>
-							<input type="submit" class="btn btn-primary col-sm-offset-1" value="Submit">
-					  </div>
+						<label for="room">Select the room :</label>
+						<select name="room" id="room">
+							<% rooms.forEach(function(room, index) { %>
+							<option 
+								value="<%= room %>"
+								<% if(roomSel == room){ %>
+									selected
+								<% } %>>
+								<%= room %>
+							</option>
+							<% }); %>
+						</select>
+						<br/>
+						<input
+					    type="text"
+							name="nbMeasures"
+					    id="nbMeasures"
+							data-provide="slider"
+							data-slider-id="slider"
+							data-slider-min="1"
+							data-slider-max="<%= nbMeasures %>"
+							data-slider-step="1"
+							data-slider-value="<%= nbMeasuresSel %>"
+						/>
+						<input type="submit" class="btn btn-primary col-sm-offset-1" value="Submit">
 					</form>
 					<div class="form-horizontal col-lg-6">
 						<h2>Average</h2>
