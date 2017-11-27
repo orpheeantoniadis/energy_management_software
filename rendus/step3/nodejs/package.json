@@ -1,0 +1,22 @@
+{
+  "name": "sdi-ems",
+  "version": "0.1.0",
+	"license" : "BSD-3-Clause",
+	"author": "Orphée Antoniadis <orphee.antoniadis@etu.hesge.ch>",
+  "description": "Energy Management Software",
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/orpheeantoniadis/SDI_EMS"
+	},
+  "dependencies": {
+    "body-parser": "~1.18.0",
+    "bootstrap": "~3.3.7",
+    "ejs": "~2.5.5",
+    "express": "~4.14.1",
+    "express-session": "~1.15.6",
+    "jquery": "^3.2.1",
+    "node-rest-client": "~3.1.0",
+		"async": "2.6.0",
+    "popper.js": "^1.12.8"
+  }
+}
