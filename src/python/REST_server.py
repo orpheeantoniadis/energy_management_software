@@ -4,6 +4,7 @@
 from flask import *
 from database import *
 from configparser import ConfigParser
+import requests
 
 app = Flask(__name__)
 
@@ -104,12 +105,12 @@ curl -i http://localhost:5000/rooms_list
 @apiSuccessExample {json} Success-Response:
 {
   "rooms": [
-    "A400", 
-    "A401", 
-    "A402", 
-    "A403", 
-    "A404", 
-    "A406", 
+    "A400",
+    "A401",
+    "A402",
+    "A403",
+    "A404",
+    "A406",
     "A432"
   ]
 }
@@ -254,7 +255,7 @@ curl -i http://localhost:5000/A432/average/5
 }
 @apiErrorExample {json} Error-Response:
 {
-  "error": "TooMuchMeasures", 
+  "error": "TooMuchMeasures",
   "max": 234
 }
 
@@ -361,6 +362,166 @@ def get_measures_between(controller, sensor, date1, date2):
         return jsonify({'error':'SensorNotFound'})
 
     return jsonify(db.select_measures_between(controller, sensor, date1, date2))
+
+"""
+@api {get} /v0/radiator/read/:id get Radiator value
+@apiName GetRadiatorValue
+@apiGroup Store-Radiator
+
+@apiExample {curl} Example usage:
+curl -i http://localhost:5000/v0/radiator/read/1
+
+@apiParam {int} id Radiator id
+
+@apiSuccess {str} current_value Radiator value
+
+@apiSuccessExample {json} Success-Response:
+{
+"current_value": "20"
+}
+
+@apiError RadiatorNotFound The <code>id</code> of the Radiator was not found.
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "RadiatorNotFound"
+}
+"""
+@app.route('/v0/radiator/read/<int:id>', methods=['GET'])
+def get_radiator_value(id):
+    '''flag = False
+    rooms = db.select_all_rooms()
+    for room in rooms:
+        if room == room_id:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'RoomNotFound'})
+    nbr = db.select_nbr_measures_room(room_id)
+    if x > nbr:
+        return jsonify({'error':'TooMuchMeasures', 'max':nbr}) '''
+    return jsonify({'error':'RadiatorNotFound'})
+
+"""
+@api {get} /v0/store/read/:id get Store value
+@apiName GetStoreValue
+@apiGroup Store-Radiator
+
+@apiExample {curl} Example usage:
+curl -i http://localhost:5000/v0/store/read/1
+
+@apiParam {int} id Store id
+
+@apiSuccess {str} current_value Store value
+
+@apiSuccessExample {json} Success-Response:
+{
+"current_value": "20"
+}
+
+@apiError RadiatorNotFound The <code>id</code> of the Store was not found.
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "StoreNotFound"
+}
+"""
+@app.route('/v0/store/read/<int:id>', methods=['GET'])
+def get_store_value(id):
+    '''flag = False
+    rooms = db.select_all_rooms()
+    for room in rooms:
+        if room == room_id:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'RoomNotFound'})
+    nbr = db.select_nbr_measures_room(room_id)
+    if x > nbr:
+        return jsonify({'error':'TooMuchMeasures', 'max':nbr}) '''
+    return jsonify({'error':'StoreNotFound'})
+
+"""
+@api {get} /v0/store/write/:id/:x set Store value
+@apiName SetStoreValue
+@apiGroup Store-Radiator
+
+@apiExample {curl} Example usage:
+curl -i http://localhost:5000/v0/store/write/1/42
+
+@apiDescription Here we use a GET method to POST new
+data on the REST server. It is easier to use and you can verify
+the new data of the Store by checking the success response.
+
+@apiParam {int} id Store id
+@apiParam {int} x Store value
+
+@apiSuccess {str} new_value Store value
+
+@apiSuccessExample {json} Success-Response:
+{
+"new_value": "42"
+}
+
+@apiError StoreNotFound The <code>id</code> of the Store was not found.
+@apiError WrongValue The <code>x</code> value is wrong.
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "StoreNotFound"
+}
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "WrongValue",
+    "min_value": "0",
+    "max_value": "255"
+}
+"""
+@app.route('/v0/store/write/<int:id>/<int:x>', methods=['GET'])
+def set_store_value(id,x):
+    requests.post('http://localhost:5001/v0/store/write',json={'store_id':str(id),'value' : str(x)})
+    return jsonify({'new_value':str(x)})
+
+"""
+@api {get} /v0/radiator/write/:id/:x set Radiator value
+@apiName SetRadiatorValue
+@apiGroup Store-Radiator
+
+@apiExample {curl} Example usage:
+curl -i http://localhost:5000/v0/radiator/write/1/42
+
+@apiDescription Here we use a GET method to POST new
+data on the REST server. It is easier to use and you can verify
+the new data of the Radiator by checking the success response.
+
+@apiParam {int} id Radiator id
+@apiParam {int} x Radiator value
+
+@apiSuccess {str} new_value Radiator value
+
+@apiSuccessExample {json} Success-Response:
+{
+"new_value": "42"
+}
+
+@apiError RadiatorNotFound The <code>id</code> of the Radiator was not found.
+@apiError WrongValue The <code>x</code> value is wrong.
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "RadiatorNotFound"
+}
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "WrongValue",
+    "min_value": "0",
+    "max_value": "255"
+}
+"""
+@app.route('/v0/radiator/write/<int:id>/<int:x>', methods=['GET'])
+def set_radiator_value(id,x):
+    requests.post('http://localhost:5001/v0/radiator/write',json={'radiator_id':str(id),'value' : str(x)})
+    return jsonify({'new_value':str(x)})
 
 if __name__ == '__main__':
 	db = database()
