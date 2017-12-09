@@ -525,13 +525,11 @@ def set_radiator_value(id,x):
 
 if __name__ == '__main__':
     db = database()
-    print(db.select_driver_date(1,'store'))
-
-	# parser = ConfigParser()
-	# parser.read('rest_server.ini')
-	# if parser.has_section('rest_server'):
-	# 	params = parser.items('rest_server')
-	# 	ip = params[0]
-	# else:
-	# 	raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-	# app.run(debug=True,host=ip[1])
+    parser = ConfigParser()
+    parser.read('rest_server.ini')
+    if parser.has_section('rest_server'):
+    	params = parser.items('rest_server')
+    	ip = params[0]
+    else:
+    	raise Exception('Section {0} not found in the {1} file'.format(section, filename))
+    app.run(debug=True,host=ip[1])
