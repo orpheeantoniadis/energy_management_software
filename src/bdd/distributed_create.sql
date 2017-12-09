@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS drivers CASCADE;
 CREATE TABLE drivers(
   id int,
   type varchar,
+  value int,
+  last_modif timestamp,
   CONSTRAINT key_drivers PRIMARY KEY (id,type)
 );
 

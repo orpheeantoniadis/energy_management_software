@@ -1,10 +1,10 @@
 \i distributed_create.sql
 
-insert into drivers values(1,'radiator');
-insert into drivers values(1,'store');
-insert into drivers values(2,'radiator');
-insert into drivers values(2,'store');
-insert into drivers values(3,'radiator');
+insert into drivers values(1,'radiator',20,'2004-10-19 10:23:54');
+insert into drivers values(1,'store',70,'2004-10-19 10:23:54');
+insert into drivers values(2,'radiator',90,'2004-10-19 10:23:54');
+insert into drivers values(2,'store',250,'2004-10-19 10:23:54');
+insert into drivers values(3,'radiator',40,'2004-10-19 10:23:54');
 
 insert into sensors values(1,'Pi lab1','Room 401');
 insert into sensors values(1,'Pi lab2','Room 502');
