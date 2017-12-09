@@ -1,11 +1,5 @@
 \i distributed_create.sql
 
-insert into drivers values(1,'radiator');
-insert into drivers values(1,'store');
-insert into drivers values(2,'radiator');
-insert into drivers values(2,'store');
-insert into drivers values(3,'radiator');
-
 insert into sensors values(1,'Pi lab1','Room 401');
 insert into sensors values(1,'Pi lab2','Room 502');
 insert into sensors values(2,'Pi lab1','Room 405');

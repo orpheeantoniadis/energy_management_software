@@ -5,7 +5,13 @@ CREATE DATABASE sdi_ems;
 DROP TABLE IF EXISTS pi CASCADE;
 DROP TABLE IF EXISTS sensors CASCADE;
 DROP TABLE IF EXISTS measures CASCADE;
+DROP TABLE IF EXISTS drivers CASCADE;
 
+CREATE TABLE drivers(
+  id int,
+  type varchar,
+  CONSTRAINT key_drivers PRIMARY KEY (id,type)
+);
 
 CREATE TABLE sensors(
   id int,
