@@ -5,6 +5,7 @@ from flask import *
 from database import *
 from configparser import ConfigParser
 import requests
+from rule import *
 
 app = Flask(__name__)
 
@@ -438,7 +439,7 @@ are available:
 3. Close the stores when the humidity is high
 4. Open the store at day time, when the luminance is low and the room is occupied
 
-@apiParam {int} id Rule id
+@apiParam {int} rule Rule number
 @apiParam {string} location The room in which the rule is applied
 @apiParam {int} thresholed The value the rule is triggered on.
 
@@ -446,9 +447,15 @@ are available:
 
 @apiParamExample {json} Exemple-JSON:
 {
-    "id": 1,
+    "rule": 1,
     "location": "A532",
     "threshold": 10,
+}
+@apiParamExample {json} Exemple-JSON:
+{
+    "rule": 4,
+    "location": "A401",
+    "threshold": 143,
 }
 
 @apiSuccessExample {json} Success-Response:
@@ -456,13 +463,13 @@ are available:
     "ok": "ok"
 }
 
-@apiError WrongRuleID The <code>id</code> of the Rule was not found.
+@apiError WrongRuleNBR The <code>nbr</code> of the Rule was not found.
 @apiError WrongThreshold The <code>threshold</code> value is wrong.
 @apiError WrongLocation The <code>location</code> doesn't exist.
 
 @apiErrorExample {json} Error-Response:
 {
-    "error": "WrongRuleID"
+    "error": "WrongRuleNBR"
 }
 
 @apiErrorExample {json} Error-Response:
@@ -481,7 +488,7 @@ are available:
 def set_rules():
     #requests.post('http://localhost:5001/v0/store/write',json={'store_id':str(id),'value' : str(x)})
     datas = request.get_json()
-    print(datas)
+    db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
     return jsonify({'ok':'ok'})
 
 '''
@@ -511,4 +518,4 @@ if __name__ == '__main__':
     	ip = params[0]
     else:
     	raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-    #app.run(debug=True,host=ip[1])
+    app.run(debug=True,host=ip[1])

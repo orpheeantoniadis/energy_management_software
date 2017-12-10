@@ -2,9 +2,9 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 
 var args = {
-    data: { id: 1,
-            location: "A532",
-            threshold: 10},
+    data: { rule: 3,
+            location: "A401",
+            threshold: 221},
 
     headers: { "Content-Type": "application/json" }
 };
