@@ -389,17 +389,10 @@ curl -i http://localhost:5000/v0/radiator/read/1
 """
 @app.route('/v0/radiator/read/<int:id>', methods=['GET'])
 def get_radiator_value(id):
-    '''flag = False
-    rooms = db.select_all_rooms()
-    for room in rooms:
-        if room == room_id:
-            flag = True
-    if flag == False:
-        return jsonify({'error':'RoomNotFound'})
-    nbr = db.select_nbr_measures_room(room_id)
-    if x > nbr:
-        return jsonify({'error':'TooMuchMeasures', 'max':nbr}) '''
-    return jsonify({'error':'RadiatorNotFound'})
+    value = db.select_driver_value(id,'radiator')
+    if value == None:
+        return jsonify({'error':'RadiatorNotFound'})
+    return jsonify({'current_value':str(value)})
 
 """
 @api {get} /v0/store/read/:id get Store value
@@ -427,17 +420,10 @@ curl -i http://localhost:5000/v0/store/read/1
 """
 @app.route('/v0/store/read/<int:id>', methods=['GET'])
 def get_store_value(id):
-    '''flag = False
-    rooms = db.select_all_rooms()
-    for room in rooms:
-        if room == room_id:
-            flag = True
-    if flag == False:
-        return jsonify({'error':'RoomNotFound'})
-    nbr = db.select_nbr_measures_room(room_id)
-    if x > nbr:
-        return jsonify({'error':'TooMuchMeasures', 'max':nbr}) '''
-    return jsonify({'error':'StoreNotFound'})
+    value = db.select_driver_value(id,'store')
+    if value == None:
+        return jsonify({'error':'StoreNotFound'})
+    return jsonify({'current_value':str(value)})
 
 """
 @api {get} /v0/store/write/:id/:x set Store value
@@ -523,8 +509,26 @@ def set_radiator_value(id,x):
     requests.post('http://localhost:5001/v0/radiator/write',json={'radiator_id':str(id),'value' : str(x)})
     return jsonify({'new_value':str(x)})
 
+'''
+This function init the drivers into the database by reading the drivers.ini file.
+'''
+def init_drivers(db):
+    parser = ConfigParser()
+    parser.read('drivers.ini')
+    sections = parser.sections()
+    for driver in sections:
+        params = parser.items(driver)
+        id = params[0][1]
+        type = params[1][1]
+        value = params[2][1]
+        print(id)
+        print(type)
+        print(value)
+        db.insert_driver(id,type,value,date=None)
+
 if __name__ == '__main__':
     db = database()
+    init_drivers(db)
     parser = ConfigParser()
     parser.read('rest_server.ini')
     if parser.has_section('rest_server'):
@@ -532,4 +536,4 @@ if __name__ == '__main__':
     	ip = params[0]
     else:
     	raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-    app.run(debug=True,host=ip[1])
+    #app.run(debug=True,host=ip[1])
