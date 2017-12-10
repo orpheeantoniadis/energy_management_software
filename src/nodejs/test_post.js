@@ -2,7 +2,7 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 
 var args = {
-    data: { id: 1,
+    data: { id: 1,d
             location: "A532",
             threshold: 10},
 

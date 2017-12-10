@@ -8,11 +8,6 @@ import requests
 
 app = Flask(__name__)
 
-rules = ["","Lower the temperature of a room to a given threshold when it is empty",
-        "Increase the temperature of a room to a given threshold when it is occupied",
-        "Close the stores when the humidity is high",
-        "Open the store at day time, when the luminance is low and the room is occupied"]
-
 """
 @api {get} /controllers_list Controller List
 @apiName GetControllerList
@@ -494,6 +489,8 @@ def init_drivers(db):
 if __name__ == '__main__':
     db = database()
     #init_drivers(db)
+    rule = db.select_all_rules()[0]
+    db.delete_rule(rule)
     parser = ConfigParser()
     parser.read('rest_server.ini')
     if parser.has_section('rest_server'):
@@ -501,4 +498,4 @@ if __name__ == '__main__':
     	ip = params[0]
     else:
     	raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-    app.run(debug=True,host=ip[1])
+    #app.run(debug=True,host=ip[1])

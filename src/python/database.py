@@ -7,12 +7,19 @@ import datetime
 import time
 from rasp import *
 from sensor import *
+from rule import *
+from driver import *
+
 
 class database(object):
 	def __init__(self):
 		params = self.config()
 		self.connection = psycopg2.connect(**params)
 		self.cursor = self.connection.cursor()
+		self.rules = ["","Lower the temperature of a room to a given threshold when it is empty",
+		        		"Increase the temperature of a room to a given threshold when it is occupied",
+		        		"Close the stores when the humidity is high",
+		        		"Open the store at day time, when the luminance is low and the room is occupied"]
 
 	def config(self, filename='database.ini', section='postgresql'):
 		parser = ConfigParser()
@@ -171,6 +178,16 @@ class database(object):
 
 		self.connection.commit()
 
+	def select_all_drivers(self):
+		sql = "SELECT * FROM drivers"
+		self.cursor.execute(sql)
+		drivers = []
+		row = self.cursor.fetchone()
+		while row is not None:
+			drivers.append(driver(row[0],row[1],row[2],row[3],row[4]))
+			row = self.cursor.fetchone()
+		return drivers
+
 	def select_driver_value(self,id,type):
 		sql = "SELECT * FROM drivers WHERE id = %s AND type ILIKE %s"
 		self.cursor.execute(sql, (id, type))
@@ -200,3 +217,34 @@ class database(object):
 			return row[3]
 		self.connection.commit()
 		return None
+
+	def insert_rule(self,rule,location,threshold):
+		# check if the data already exists in database
+		sql1 = "SELECT * FROM rules WHERE rule = %s AND location ILIKE %s"
+		self.cursor.execute(sql1, (rule, location))
+		row = self.cursor.fetchone()
+		self.connection.commit()
+		# update DB
+		if row is not None:
+			sql = "UPDATE rules set threshold=%s, comment=%s WHERE rule=%s AND location ILIKE %s"
+			self.cursor.execute(sql,(str(threshold),self.rules[rule],str(rule),str(location)))
+		else: # insert into db
+			sql = "INSERT INTO rules values(%s,%s,%s,%s)"
+			self.cursor.execute(sql,(str(rule),str(location),str(threshold),self.rules[rule]))
+
+		self.connection.commit()
+
+	def select_all_rules(self):
+		sql = "SELECT * FROM rules"
+		self.cursor.execute(sql)
+		rules = []
+		row = self.cursor.fetchone()
+		while row is not None:
+			rules.append(rule(row[0],row[1],row[2]))
+			row = self.cursor.fetchone()
+		return rules
+
+	def delete_rule(self,rule):
+		sql = "DELETE FROM rules WHERE rule=%s AND location like %s"
+		self.cursor.execute(sql,(rule.get_rule(),rule.get_location()))
+		self.connection.commit()

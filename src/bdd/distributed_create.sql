@@ -11,8 +11,8 @@ DROP TABLE IF EXISTS rules CASCADE;
 CREATE TABLE rules(
   rule int,
   location varchar,
-  treshold int,
-  comment timestamp,
+  threshold int,
+  comment varchar,
   CONSTRAINT key_rules PRIMARY KEY (rule,location)
 );
 
