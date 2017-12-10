@@ -510,7 +510,8 @@ def set_radiator_value(id,x):
     return jsonify({'new_value':str(x)})
 
 '''
-This function init the drivers into the database by reading the drivers.ini file.
+This function init the drivers into the database by reading the drivers.ini file
+and set the drivers to 0. 
 '''
 def init_drivers(db):
     parser = ConfigParser()
@@ -521,9 +522,7 @@ def init_drivers(db):
         id = params[0][1]
         type = params[1][1]
         value = params[2][1]
-        print(id)
-        print(type)
-        print(value)
+        requests.post('http://localhost:5001/v0/'+type+'/write',json={type+'_id':str(id),'value' : str(value)})
         db.insert_driver(id,type,value,date=None)
 
 if __name__ == '__main__':
