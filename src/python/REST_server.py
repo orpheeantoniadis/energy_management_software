@@ -426,38 +426,53 @@ def get_store_value(id):
     return jsonify({'current_value':str(value)})
 
 """
-@api {post} /v0/store/write/:id/:x set Store value
-@apiName SetStoreValue
+@api {post} /rules set Rules
+@apiName SetRules
 @apiGroup Store-Radiator
 
-@apiExample {curl} Example usage:
-curl -i http://localhost:5000/v0/store/write/1/42
+@apiDescription Here we POST a json with a new rule / fonctionnality. 4 rules
+are available:
 
-@apiDescription Here we use a GET method to POST new
-data on the REST server. It is easier to use and you can verify
-the new data of the Store by checking the success response.
+1. Lower the temperature of a room to a given threshold when it is empty
+2. Increase the temperature of a room to a given threshold when it is occupied
+3. Close the stores when the humidity is high
+4. Open the store at day time, when the luminance is low and the room is occupied
 
-@apiParam {int} id Store id
-@apiParam {int} x Store value
+@apiParam {int} id Rule id
+@apiParam {string} location The room in which the rule is applied
+@apiParam {int} thresholed The value the rule is triggered on.
 
-@apiSuccess {str} new_value Store value
+@apiSuccess {str} ok ok
+
+@apiParamExample {json} Exemple-JSON:
+{
+    "id": 1,
+    "location": "A532",
+    "threshold": 10,
+}
 
 @apiSuccessExample {json} Success-Response:
 {
-"new_value": "42"
+    "ok": "ok"
 }
 
-@apiError StoreNotFound The <code>id</code> of the Store was not found.
-@apiError WrongValue The <code>x</code> value is wrong.
+@apiError WrongRuleID The <code>id</code> of the Rule was not found.
+@apiError WrongThreshold The <code>threshold</code> value is wrong.
+@apiError WrongLocation The <code>location</code> doesn't exist.
 
 @apiErrorExample {json} Error-Response:
 {
-    "error": "StoreNotFound"
+    "error": "WrongRuleID"
 }
 
 @apiErrorExample {json} Error-Response:
 {
-    "error": "WrongValue",
+    "error": "WrongLocation"
+}
+
+@apiErrorExample {json} Error-Response:
+{
+    "error": "WrongThreshold",
     "min_value": "0",
     "max_value": "255"
 }
@@ -489,8 +504,6 @@ def init_drivers(db):
 if __name__ == '__main__':
     db = database()
     #init_drivers(db)
-    rule = db.select_all_rules()[0]
-    db.delete_rule(rule)
     parser = ConfigParser()
     parser.read('rest_server.ini')
     if parser.has_section('rest_server'):
