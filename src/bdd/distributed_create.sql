@@ -6,11 +6,21 @@ DROP TABLE IF EXISTS pi CASCADE;
 DROP TABLE IF EXISTS sensors CASCADE;
 DROP TABLE IF EXISTS measures CASCADE;
 DROP TABLE IF EXISTS drivers CASCADE;
+DROP TABLE IF EXISTS rules CASCADE;
+
+CREATE TABLE rules(
+  rule int,
+  location varchar,
+  treshold int,
+  comment timestamp,
+  CONSTRAINT key_rules PRIMARY KEY (rule,location)
+);
 
 CREATE TABLE drivers(
   id int,
   type varchar,
   value int,
+  location varchar,
   last_modif timestamp,
   CONSTRAINT key_drivers PRIMARY KEY (id,type)
 );

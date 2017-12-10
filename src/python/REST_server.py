@@ -8,6 +8,11 @@ import requests
 
 app = Flask(__name__)
 
+rules = ["","Lower the temperature of a room to a given threshold when it is empty",
+        "Increase the temperature of a room to a given threshold when it is occupied",
+        "Close the stores when the humidity is high",
+        "Open the store at day time, when the luminance is low and the room is occupied"]
+
 """
 @api {get} /controllers_list Controller List
 @apiName GetControllerList
@@ -426,7 +431,7 @@ def get_store_value(id):
     return jsonify({'current_value':str(value)})
 
 """
-@api {get} /v0/store/write/:id/:x set Store value
+@api {post} /v0/store/write/:id/:x set Store value
 @apiName SetStoreValue
 @apiGroup Store-Radiator
 
@@ -462,56 +467,16 @@ the new data of the Store by checking the success response.
     "max_value": "255"
 }
 """
-@app.route('/v0/store/write/<int:id>/<int:x>', methods=['GET'])
-def set_store_value(id,x):
-    requests.post('http://localhost:5001/v0/store/write',json={'store_id':str(id),'value' : str(x)})
-    return jsonify({'new_value':str(x)})
-
-"""
-@api {get} /v0/radiator/write/:id/:x set Radiator value
-@apiName SetRadiatorValue
-@apiGroup Store-Radiator
-
-@apiExample {curl} Example usage:
-curl -i http://localhost:5000/v0/radiator/write/1/42
-
-@apiDescription Here we use a GET method to POST new
-data on the REST server. It is easier to use and you can verify
-the new data of the Radiator by checking the success response.
-
-@apiParam {int} id Radiator id
-@apiParam {int} x Radiator value
-
-@apiSuccess {str} new_value Radiator value
-
-@apiSuccessExample {json} Success-Response:
-{
-"new_value": "42"
-}
-
-@apiError RadiatorNotFound The <code>id</code> of the Radiator was not found.
-@apiError WrongValue The <code>x</code> value is wrong.
-
-@apiErrorExample {json} Error-Response:
-{
-    "error": "RadiatorNotFound"
-}
-
-@apiErrorExample {json} Error-Response:
-{
-    "error": "WrongValue",
-    "min_value": "0",
-    "max_value": "255"
-}
-"""
-@app.route('/v0/radiator/write/<int:id>/<int:x>', methods=['GET'])
-def set_radiator_value(id,x):
-    requests.post('http://localhost:5001/v0/radiator/write',json={'radiator_id':str(id),'value' : str(x)})
-    return jsonify({'new_value':str(x)})
+@app.route('/rules', methods=['POST'])
+def set_rules():
+    #requests.post('http://localhost:5001/v0/store/write',json={'store_id':str(id),'value' : str(x)})
+    datas = request.get_json()
+    print(datas)
+    return jsonify({'ok':'ok'})
 
 '''
-This function init the drivers into the database by reading the drivers.ini file
-and set the drivers to 0. 
+This function init the drivers into the database by reading the drivers.ini file AND
+set the drivers values. (drivers = radiators/stores)
 '''
 def init_drivers(db):
     parser = ConfigParser()
@@ -522,12 +487,13 @@ def init_drivers(db):
         id = params[0][1]
         type = params[1][1]
         value = params[2][1]
+        location = params[3][1]
         requests.post('http://localhost:5001/v0/'+type+'/write',json={type+'_id':str(id),'value' : str(value)})
-        db.insert_driver(id,type,value,date=None)
+        db.insert_driver(id,type,value,location,date=None)
 
 if __name__ == '__main__':
     db = database()
-    init_drivers(db)
+    #init_drivers(db)
     parser = ConfigParser()
     parser.read('rest_server.ini')
     if parser.has_section('rest_server'):
@@ -535,4 +501,4 @@ if __name__ == '__main__':
     	ip = params[0]
     else:
     	raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-    #app.run(debug=True,host=ip[1])
+    app.run(debug=True,host=ip[1])

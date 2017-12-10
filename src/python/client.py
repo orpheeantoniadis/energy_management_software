@@ -12,6 +12,8 @@ IP_RASP2 = "129.194.184.125"
 IP_RASP3 = "129.194.185.199"
 PORT = "5000"
 
+# exemple, don't touch : requests.post('http://localhost:5001/v0/store/write',json={'store_id':str(id),'value' : str(x)})
+
 def signal_handler(signal, frame):
 	db.close()
 	sys.exit(0)

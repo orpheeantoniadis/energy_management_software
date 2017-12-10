@@ -152,7 +152,7 @@ class database(object):
 		self.cursor.close()
 		self.connection.close()
 
-	def insert_driver(self,id,type,value,date=None):
+	def insert_driver(self,id,type,value,location,date=None):
 		if date is None:
 			date = str(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
 
@@ -163,11 +163,11 @@ class database(object):
 		self.connection.commit()
 		# update DB
 		if row is not None:
-			sql = "UPDATE drivers set value=%s, last_modif=%s WHERE id=%s AND type=%s"
-			self.cursor.execute(sql,(str(value),date,str(id),type))
+			sql = "UPDATE drivers set value=%s, last_modif=%s, location=%s WHERE id=%s AND type=%s"
+			self.cursor.execute(sql,(str(value),date,str(location),str(id),type))
 		else: # insert into db
-			sql = "INSERT INTO drivers values(%s,%s,%s,%s)"
-			self.cursor.execute(sql,(str(id),type,str(value),date))
+			sql = "INSERT INTO drivers values(%s,%s,%s,%s,%s)"
+			self.cursor.execute(sql,(str(id),type,str(value),str(location),date))
 
 		self.connection.commit()
 
@@ -182,6 +182,16 @@ class database(object):
 		return None
 
 	def select_driver_date(self,id,type):
+		sql = "SELECT * FROM drivers WHERE id = %s AND type ILIKE %s"
+		self.cursor.execute(sql, (id, type))
+		row = self.cursor.fetchone()
+		if row is not None:
+			self.connection.commit()
+			return row[4]
+		self.connection.commit()
+		return None
+
+	def select_driver_location(self,id,type):
 		sql = "SELECT * FROM drivers WHERE id = %s AND type ILIKE %s"
 		self.cursor.execute(sql, (id, type))
 		row = self.cursor.fetchone()
