@@ -126,8 +126,7 @@ if __name__ == '__main__':
 	delete_all_rules(db)
 	init_drivers(db)
 
-	print(db.select_room_last('A501'))
-	to execute every ~4min
+	#to execute every ~4min
 	while True:
 		print "collecting data...\n"
 		for pi in pi_list:
