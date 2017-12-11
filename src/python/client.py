@@ -43,10 +43,9 @@ def check_rules(db):
 	rules = db.select_all_rules()
 	for rule in rules:
 		if rule.get_rule() == 1:
-			print("rule1")
 			check_rule_1(db,rule)
 		elif rule.get_rule() == 2:
-			print("rule2")
+			check_rule_2(db,rule)
 		elif rule.get_rule() == 3:
 			print("rule3")
 		elif rule.get_rule() == 4:
@@ -66,6 +65,19 @@ def check_rule_1(db,rule):
 			requests.post('http://localhost:5001/v0/radiator/write',
 						json={'radiator_id':str(radiators[1].get_id()),'value' : '0'})
 
+'''
+Rule 2: increase the temperature of a room to a given threshold when it is occupied.
+As we know that we have 2 radiator in a room, we drive both.
+'''
+def check_rule_2(db,rule):
+	datas = db.select_room_last(rule.get_location())
+	if datas.get('motion') == True:
+		if datas.get('temperature') < rule.get_threshold():
+			radiators = db.select_drivers(rule.get_location(),'radiator')
+			requests.post('http://localhost:5001/v0/radiator/write',
+						json={'radiator_id':str(radiators[0].get_id()),'value' : '150'})
+			requests.post('http://localhost:5001/v0/radiator/write',
+						json={'radiator_id':str(radiators[1].get_id()),'value' : '150'})
 
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler)

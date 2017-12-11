@@ -10,9 +10,9 @@ var client = new Client();
 };*/
 
 var args = {
-    data: { rule: 1,
+    data: { rule: 2,
             location: "A501",
-            threshold: 20},
+            threshold: 15},
 
     headers: { "Content-Type": "application/json" }
 };
