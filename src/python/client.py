@@ -75,12 +75,12 @@ def check_rule_2(db,rule):
 		if datas.get('temperature') < rule.get_threshold():
 			radiators = db.select_drivers(rule.get_location(),'radiator')
 			requests.post('http://localhost:5001/v0/radiator/write',
-						json={'radiator_id':str(radiators[0].get_id()),'value' : '150'})
+						json={'radiator_id':str(radiators[0].get_id()),'value' : '200'})
 			requests.post('http://localhost:5001/v0/radiator/write',
-						json={'radiator_id':str(radiators[1].get_id()),'value' : '150'})
+						json={'radiator_id':str(radiators[1].get_id()),'value' : '200'})
 
 '''
-Rule 3: close the stores when the humidity is high
+Rule 3: close the stores when the humidity is high.
 As we know that we have 2 stores in a room, we drive both.
 '''
 def check_rule_3(db,rule):
@@ -92,8 +92,22 @@ def check_rule_3(db,rule):
 		requests.post('http://localhost:5001/v0/store/write',
 					json={'store_id':str(stores[1].get_id()),'value' : '0'})
 
+'''
+Rule 4: open the store at day time, when the luminance is low and the room is occupied.
+Here we do not check if it is day time because it can change (not the same
+in the summer and at december). We thing that luminance is more important, especially
+when the room is occupied.
+As we know that we have 2 stores in a room, we drive both.
+'''
 def check_rule_4(db,rule):
-	print("yo")
+	datas = db.select_room_last(rule.get_location())
+	if datas.get('motion') == True:
+		if datas.get('luminance') < rule.get_threshold():
+			stores = db.select_drivers(rule.get_location(),'store')
+			requests.post('http://localhost:5001/v0/store/write',
+						json={'store_id':str(stores[0].get_id()),'value' : '255'})
+			requests.post('http://localhost:5001/v0/store/write',
+						json={'store_id':str(stores[1].get_id()),'value' : '255'})
 
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler)
@@ -109,15 +123,16 @@ if __name__ == '__main__':
 		for sensor in pi.sensors_list:
 			db.insert_sensor(sensor)
 
-	#delete_all_rules(db)
-	#init_drivers(db)
-	check_rules(db)
+	delete_all_rules(db)
+	init_drivers(db)
+
 	print(db.select_room_last('A501'))
-	# to execute every ~4min
-	# while True:
-	# 	print "collecting data...\n"
-	# 	for pi in pi_list:
-	# 		for sensor in pi.sensors_list:
-	# 			db.insert_measures(sensor)
-	# 	print "waiting...\n"
-	# 	time.sleep(240)
+	to execute every ~4min
+	while True:
+		print "collecting data...\n"
+		for pi in pi_list:
+			for sensor in pi.sensors_list:
+				db.insert_measures(sensor)
+		check_rules(db)
+		print "waiting...\n"
+		time.sleep(240)
