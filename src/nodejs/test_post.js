@@ -10,7 +10,7 @@ var client = new Client();
 };*/
 
 var args = {
-    data: { rule: 2,
+    data: { rule: 3,
             location: "A501",
             threshold: 15},
 

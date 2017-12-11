@@ -47,13 +47,13 @@ def check_rules(db):
 		elif rule.get_rule() == 2:
 			check_rule_2(db,rule)
 		elif rule.get_rule() == 3:
-			print("rule3")
+			check_rule_3(db,rule)
 		elif rule.get_rule() == 4:
-			print("rule4")
+			check_rule_4(db,rule)
 
 '''
 Rule 1: lower the temperature of a room to a given threshold when it is empty.
-As we know that we have 2 radiator in a room, we drive both.
+As we know that we have 2 radiators in a room, we drive both.
 '''
 def check_rule_1(db,rule):
 	datas = db.select_room_last(rule.get_location())
@@ -67,7 +67,7 @@ def check_rule_1(db,rule):
 
 '''
 Rule 2: increase the temperature of a room to a given threshold when it is occupied.
-As we know that we have 2 radiator in a room, we drive both.
+As we know that we have 2 radiators in a room, we drive both.
 '''
 def check_rule_2(db,rule):
 	datas = db.select_room_last(rule.get_location())
@@ -78,6 +78,22 @@ def check_rule_2(db,rule):
 						json={'radiator_id':str(radiators[0].get_id()),'value' : '150'})
 			requests.post('http://localhost:5001/v0/radiator/write',
 						json={'radiator_id':str(radiators[1].get_id()),'value' : '150'})
+
+'''
+Rule 3: close the stores when the humidity is high
+As we know that we have 2 stores in a room, we drive both.
+'''
+def check_rule_3(db,rule):
+	datas = db.select_room_last(rule.get_location())
+	if datas.get('humidity') > rule.get_threshold():
+		stores = db.select_drivers(rule.get_location(),'store')
+		requests.post('http://localhost:5001/v0/store/write',
+					json={'store_id':str(stores[0].get_id()),'value' : '0'})
+		requests.post('http://localhost:5001/v0/store/write',
+					json={'store_id':str(stores[1].get_id()),'value' : '0'})
+
+def check_rule_4(db,rule):
+	print("yo")
 
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler)

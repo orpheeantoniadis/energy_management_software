@@ -24238,3 +24238,1045 @@ frame_length                    0x8
 channel_id                       27
 status                            0
 
+2017-12-11 22:38:16,101 :: INFO :: Blind 1.0.1@1/4/2 UP
+2017-12-11 22:38:18,169 :: INFO :: Blind 1.0.0@1/4/1 UP
+2017-12-11 22:39:25,430 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:39:25,430 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,430 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:39:25,430 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,431 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,431 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,431 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,431 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,431 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:39:25,432 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,432 :: INFO :: Valve 1.0.2@0/4/1 = 150
+2017-12-11 22:39:25,435 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,435 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,435 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:39:25,435 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,439 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,439 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,439 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,440 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,440 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,440 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,446 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:39:25,446 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,446 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:39:25,446 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,446 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,447 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,447 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,447 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,447 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:39:25,447 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,447 :: INFO :: Valve 1.0.3@0/4/2 = 150
+2017-12-11 22:39:25,450 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,450 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,451 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:39:25,451 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,452 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,452 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,453 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,453 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,453 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,453 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,461 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:39:25,462 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,462 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:39:25,462 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,462 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,463 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,463 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,463 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,464 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:39:25,464 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,464 :: INFO :: Valve 1.0.2@0/4/1 = 0
+2017-12-11 22:39:25,469 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,469 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,469 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:39:25,470 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,471 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,471 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,471 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,472 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,472 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,472 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,479 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:39:25,479 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,480 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:39:25,480 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:39:25,480 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,481 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,481 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,481 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:39:25,482 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:39:25,482 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,482 :: INFO :: Valve 1.0.3@0/4/2 = 0
+2017-12-11 22:39:25,485 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,485 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,485 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:39:25,486 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:39:25,489 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:39:25,489 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:39:25,489 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:39:25,489 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:39:25,490 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:39:25,490 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:40:41,111 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:40:41,111 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:40:41,111 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:40:41,111 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:40:41,111 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:40:41,112 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:40:41,112 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:40:41,112 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:40:41,112 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:40:41,112 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:40:41,112 :: INFO :: Valve 1.0.2@0/4/1 = 150
+2017-12-11 22:40:41,116 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:40:41,116 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:40:41,116 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:40:41,116 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:40:41,118 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:40:41,118 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:40:41,118 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:40:41,118 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:40:41,118 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:40:41,118 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:40:41,123 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:40:41,124 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:40:41,124 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:40:41,124 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:40:41,124 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:40:41,124 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:40:41,124 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:40:41,124 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:40:41,125 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:40:41,125 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:40:41,125 :: INFO :: Valve 1.0.3@0/4/2 = 150
+2017-12-11 22:40:41,128 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:40:41,128 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:40:41,128 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:40:41,128 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:40:41,129 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:40:41,129 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:40:41,129 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:40:41,129 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:40:41,129 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:40:41,129 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,466 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:41:05,466 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,466 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:41:05,467 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,467 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,467 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,467 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,467 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,468 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:41:05,468 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,468 :: INFO :: Valve 1.0.2@0/4/1 = 150
+2017-12-11 22:41:05,470 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,470 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,471 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x1', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:41:05,471 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,472 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,472 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,472 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,473 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,473 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,473 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,480 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:41:05,481 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,481 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:41:05,481 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,481 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,481 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,481 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,481 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,482 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:41:05,482 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,482 :: INFO :: Valve 1.0.3@0/4/2 = 150
+2017-12-11 22:41:05,484 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,485 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,485 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x4', '0x2', '0x2', '0x0', '0x80', '0x96']
+2017-12-11 22:41:05,485 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               0/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                           0x96
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,486 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,487 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,487 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,487 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,487 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,487 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,496 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:41:05,496 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,497 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:41:05,497 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,497 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,497 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,497 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,498 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,498 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x1c', '0x1', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:41:05,498 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               3/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,499 :: INFO :: Blind 1.0.0@1/4/1 MOVE TO 0
+2017-12-11 22:41:05,499 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,499 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,499 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x1c', '0x1', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:41:05,499 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               3/4/1
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,500 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,500 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,500 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,500 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,500 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,501 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,507 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x5', '0x0', '0x1a', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0x2', '0x0']
+2017-12-11 22:41:05,508 :: INFO :: = Connection request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x205
+frame_length                   0x1a
+control_endpoint          0.0.0.0:0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,508 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x6', '0x0', '0x14', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x4', '0x4', '0xff', '0xff']
+2017-12-11 22:41:05,508 :: INFO :: = Connection response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x206
+frame_length                   0x14
+channel_id                       27
+status                            0
+data_endpoint             0.0.0.0:0
+
+2017-12-11 22:41:05,509 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x7', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,509 :: INFO :: = Connection state request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x207
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,509 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0x8', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,509 :: INFO :: = Connection state response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x208
+frame_length                    0x8
+channel_id                       27
+status                            0
+
+2017-12-11 22:41:05,509 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x11', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x1c', '0x2', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:41:05,510 :: INFO :: = Tunnelling request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               3/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x11
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,510 :: INFO :: Blind 1.0.1@1/4/2 MOVE TO 0
+2017-12-11 22:41:05,511 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,511 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,511 :: INFO :: Frame sent:['0x6', '0x10', '0x4', '0x20', '0x0', '0x16', '0x4', '0x1b', '0x0', '0x0', '0x2e', '0x0', '0xbc', '0xe0', '0x0', '0x0', '0x1c', '0x2', '0x2', '0x0', '0x80', '0x0']
+2017-12-11 22:41:05,511 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x420
+frame_length                   0x16
+dest_addr_group               3/4/2
+channel_id                     0x1b
+sequence_counter                0x0
+data_service                   0x2e
+data                            0x0
+data_size                       0x2
+apci                            0x2
+
+2017-12-11 22:41:05,512 :: INFO :: Frame received:['0x6', '0x10', '0x4', '0x21', '0x0', '0xa', '0x4', '0x1b', '0x0', '0x0']
+2017-12-11 22:41:05,512 :: INFO :: = Tunnelling ack:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x421
+frame_length                    0xa
+channel_id                       27
+sequence_counter                  0
+status                            0
+
+2017-12-11 22:41:05,512 :: INFO :: Frame received:['0x6', '0x10', '0x2', '0x9', '0x0', '0x10', '0x1b', '0x0', '0x8', '0x1', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+2017-12-11 22:41:05,512 :: INFO :: = Disconnect request:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x209
+frame_length                   0x10
+channel_id                       27
+control_endpoint          0.0.0.0:0
+
+2017-12-11 22:41:05,513 :: INFO :: Frame sent:['0x6', '0x10', '0x2', '0xa', '0x0', '0x8', '0x1b', '0x0']
+2017-12-11 22:41:05,513 :: INFO :: = Disconnect response:
+header_length                   0x6
+version                        0x10
+service_type_descriptor       0x20a
+frame_length                    0x8
+channel_id                       27
+status                            0
+
