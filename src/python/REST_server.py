@@ -486,31 +486,13 @@ are available:
 """
 @app.route('/rules', methods=['POST'])
 def set_rules():
-    #requests.post('http://localhost:5001/v0/store/write',json={'store_id':str(id),'value' : str(x)})
     datas = request.get_json()
     db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
     return jsonify({'ok':'ok'})
 
-'''
-This function init the drivers into the database by reading the drivers.ini file AND
-set the drivers values. (drivers = radiators/stores)
-'''
-def init_drivers(db):
-    parser = ConfigParser()
-    parser.read('drivers.ini')
-    sections = parser.sections()
-    for driver in sections:
-        params = parser.items(driver)
-        id = params[0][1]
-        type = params[1][1]
-        value = params[2][1]
-        location = params[3][1]
-        requests.post('http://localhost:5001/v0/'+type+'/write',json={type+'_id':str(id),'value' : str(value)})
-        db.insert_driver(id,type,value,location,date=None)
 
 if __name__ == '__main__':
     db = database()
-    #init_drivers(db)
     parser = ConfigParser()
     parser.read('rest_server.ini')
     if parser.has_section('rest_server'):
