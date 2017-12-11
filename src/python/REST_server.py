@@ -514,7 +514,7 @@ def set_rules():
     else:
         if (threshold<0)or(threshold>1000):
             return thError
-    #db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
+    db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
     return jsonify({'ok':'ok'})
 
 

@@ -34,24 +34,38 @@ def signal_handler(signal, frame):
 	db.close()
 	sys.exit(0)
 
-#def delete_all_rules(db): delete all the rules at the beggining
+def delete_all_rules(db):
+	rules = db.select_all_rules()
+	for rule in rules:
+		db.delete_rule(rule)
 
 def check_rules(db):
 	rules = db.select_all_rules()
 	for rule in rules:
-		print(rool)
-		check_rule(db,rule)
+		if rule.get_rule() == 1:
+			print("rule1")
+			check_rule_1(db,rule)
+		elif rule.get_rule() == 2:
+			print("rule2")
+		elif rule.get_rule() == 3:
+			print("rule3")
+		elif rule.get_rule() == 4:
+			print("rule4")
 
-def check_rule(db,rule):
-	threshold = rule.get_threshold()
-	room = rule.get_location()
-	if rule.get_rule() == 1:
+'''
+Rule 1: lower the temperature of a room to a given threshold when it is empty.
+As we know that we have 2 radiator in a room, we drive both.
+'''
+def check_rule_1(db,rule):
+	datas = db.select_room_last(rule.get_location())
+	if datas.get('motion') == False:
+		if datas.get('temperature') > rule.get_threshold():
+			radiators = db.select_drivers(rule.get_location(),'radiator')
+			requests.post('http://localhost:5001/v0/radiator/write',
+						json={'radiator_id':str(radiators[0].get_id()),'value' : '0'})
+			requests.post('http://localhost:5001/v0/radiator/write',
+						json={'radiator_id':str(radiators[1].get_id()),'value' : '0'})
 
-	elif: rule.get_rule() == 2:
-
-	elif: rule.get_rule() == 3:
-
-	elif: rule.get_rule() == 4:
 
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler)
@@ -69,8 +83,8 @@ if __name__ == '__main__':
 
 	#delete_all_rules(db)
 	#init_drivers(db)
-	#check_rules(db)
-	
+	check_rules(db)
+	print(db.select_room_last('A501'))
 	# to execute every ~4min
 	# while True:
 	# 	print "collecting data...\n"

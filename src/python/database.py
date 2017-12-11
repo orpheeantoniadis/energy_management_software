@@ -81,6 +81,16 @@ class database(object):
 		'temperature':float(row[3])}
 		return measures
 
+	def select_room_last(self, room):
+		sql = "SELECT * FROM measures m JOIN sensors s ON "+\
+		"(m.id = s.id AND m.controller = s.controller) "+\
+		"WHERE location ILIKE '"+room+"' ORDER BY date DESC LIMIT 1"
+		self.cursor.execute(sql)
+		row = self.cursor.fetchone()
+		measures = {'room':row[10], 'humidity':float(row[2]), 'luminance':float(row[3]),\
+		'temperature':float(row[4]),'motion':row[7]}
+		return measures
+
 	def select_nbr_measures_room(self,room):
 		sql = "SELECT count(*) FROM sensors JOIN measures ON sensors.id = "+\
 		"measures.id where location like '" + room + "'"
@@ -181,6 +191,16 @@ class database(object):
 	def select_all_drivers(self):
 		sql = "SELECT * FROM drivers"
 		self.cursor.execute(sql)
+		drivers = []
+		row = self.cursor.fetchone()
+		while row is not None:
+			drivers.append(driver(row[0],row[1],row[2],row[3],row[4]))
+			row = self.cursor.fetchone()
+		return drivers
+
+	def select_drivers(self,room,type):
+		sql = "SELECT * FROM drivers WHERE location ILIKE %s AND type ILIKE %s"
+		self.cursor.execute(sql,(room,type))
 		drivers = []
 		row = self.cursor.fetchone()
 		while row is not None:
