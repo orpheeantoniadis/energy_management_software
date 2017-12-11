@@ -36,8 +36,20 @@ def signal_handler(signal, frame):
 
 def check_rules(db):
 	rules = db.select_all_rules()
-	for rool in rules:
+	for rule in rules:
 		print(rool)
+		check_rule(db,rule)
+
+def check_rule(db,rool):
+	threshold = rule.get_threshold()
+	room = rule.get_location()
+	if rule.get_rule() == 1:
+
+	elif: rule.get_rule() == 2:
+
+	elif: rule.get_rule() == 3:
+
+	elif: rule.get_rule() == 4:
 
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler)

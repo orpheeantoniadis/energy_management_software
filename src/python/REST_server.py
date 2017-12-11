@@ -486,6 +486,7 @@ are available:
 """
 @app.route('/rules', methods=['POST'])
 def set_rules():
+    # need to add errors !!
     datas = request.get_json()
     db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
     return jsonify({'ok':'ok'})
