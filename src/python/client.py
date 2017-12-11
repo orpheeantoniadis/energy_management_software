@@ -34,13 +34,15 @@ def signal_handler(signal, frame):
 	db.close()
 	sys.exit(0)
 
+#def delete_all_rules(db): delete all the rules at the beggining
+
 def check_rules(db):
 	rules = db.select_all_rules()
 	for rule in rules:
 		print(rool)
 		check_rule(db,rule)
 
-def check_rule(db,rool):
+def check_rule(db,rule):
 	threshold = rule.get_threshold()
 	room = rule.get_location()
 	if rule.get_rule() == 1:
@@ -65,8 +67,10 @@ if __name__ == '__main__':
 		for sensor in pi.sensors_list:
 			db.insert_sensor(sensor)
 
+	#delete_all_rules(db)
 	#init_drivers(db)
-	check_rules(db)
+	#check_rules(db)
+	
 	# to execute every ~4min
 	# while True:
 	# 	print "collecting data...\n"

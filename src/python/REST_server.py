@@ -441,7 +441,10 @@ are available:
 
 @apiParam {int} rule Rule number
 @apiParam {string} location The room in which the rule is applied
-@apiParam {int} thresholed The value the rule is triggered on.
+@apiParam {int} thresholed The value the rule is triggered on. For <code>rules 1 & 2</code>,
+the thresholed is a temperature <code>[0..30]</code> (°C), for <code>rule 3</code> this is
+a humidity value <code>[0..100]</code> (%) and finnaly for <code>rule 4</code>, the threshold is a limunance
+value <code>[0..1000]</code> (Candela).
 
 @apiSuccess {str} ok ok
 
@@ -449,13 +452,13 @@ are available:
 {
     "rule": 1,
     "location": "A532",
-    "threshold": 10,
+    "threshold": 20,
 }
 @apiParamExample {json} Exemple-JSON:
 {
     "rule": 4,
     "location": "A401",
-    "threshold": 143,
+    "threshold": 100,
 }
 
 @apiSuccessExample {json} Success-Response:
@@ -481,14 +484,37 @@ are available:
 {
     "error": "WrongThreshold",
     "min_value": "0",
-    "max_value": "255"
+    "max_value_temp": "30",
+    "max_value_lum": "1000",
+    "max_value_hum": "100"
 }
 """
 @app.route('/rules', methods=['POST'])
 def set_rules():
-    # need to add errors !!
     datas = request.get_json()
-    db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
+    rule = datas.get('rule')
+    if (rule < 0) or (rule > 5):
+        return jsonify({'error':'WrongRuleNBR'})
+    location = datas.get('location')
+    flag = False
+    for room in db.select_all_rooms():
+        if location == room:
+            flag = True
+    if flag == False:
+        return jsonify({'error':'WrongLocation'})
+    threshold = datas.get('threshold')
+    thError = jsonify({'error':'WrongThreshold','min_value':'0',
+        'max_value_temp':'30','max_value_lum':'1000','max_value_hum':'100'})
+    if (rule == 1) or (rule == 2):
+        if (threshold<0)or(threshold>30):
+            return thError
+    elif rule == 3:
+        if (threshold<0)or(threshold>100):
+            return thError
+    else:
+        if (threshold<0)or(threshold>1000):
+            return thError
+    #db.insert_rule(datas.get('rule'),datas.get('location'),datas.get('threshold'))
     return jsonify({'ok':'ok'})
 
 

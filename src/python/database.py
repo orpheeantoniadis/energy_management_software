@@ -83,7 +83,7 @@ class database(object):
 
 	def select_nbr_measures_room(self,room):
 		sql = "SELECT count(*) FROM sensors JOIN measures ON sensors.id = "+\
-		"measures.id where location like '" + room +"'"
+		"measures.id where location like '" + room + "'"
 		self.cursor.execute(sql)
 		row = self.cursor.fetchone()
 		return row[0]
