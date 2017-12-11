@@ -8,61 +8,67 @@
   <body>
     <% include ../partials/header %>
 		<div class="container-fluid">
-      <div class="row">
 				<% include ../partials/menu %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Rooms</h1>
-					<form id="rooms" class="form-horizontal col-lg-6" method="post" action="/rooms/selection"/>
-					<h2>Selection</h2>
-						<label for="room">Select the room :</label>
-						<select name="room" id="room">
-							<% rooms.forEach(function(room, index) { %>
-							<option 
-								value="<%= room %>"
-								<% if(roomSel == room){ %>
-									selected
-								<% } %>>
-								<%= room %>
-							</option>
-							<% }); %>
-						</select>
-						<br/>
-						<input
-					    type="text"
-							name="nbMeasures"
-					    id="nbMeasures"
-							data-provide="slider"
-							data-slider-id="slider"
-							data-slider-min="1"
-							data-slider-max="<%= nbMeasures %>"
-							data-slider-step="1"
-							data-slider-value="<%= nbMeasuresSel %>"
-						/>
-						<input type="submit" class="btn btn-primary col-sm-offset-1" value="Submit">
-					</form>
-					<div class="form-horizontal col-lg-6">
-						<h2>Average</h2>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>temperature</th>
-										<th>humidity</th>
-										<th>luminance</th>
-									</tr>
-								</thead>
-								<tbody>
-	                <tr>
-	                  <td><%= measures.temperature %></td>
-	                  <td><%= measures.humidity %></td>
-	                  <td><%= measures.luminance %></td>
-	                </tr>
-	              </tbody>
-							</table>
+					<h1 class="page-header">Rooms</h1>
+					<div class="row">
+						<form id="rooms" class="form-horizontal col-lg-6" method="post" action="/rooms/selection"/>
+						<h2>Selection</h2>
+							<label for="room">Select the room :</label>
+							<select name="room" id="room">
+								<% rooms.forEach(function(room, index) { %>
+								<option 
+									value="<%= room %>"
+									<% if(roomSel == room){ %>
+										selected
+									<% } %>>
+									<%= room %>
+								</option>
+								<% }); %>
+							</select>
+							<br/>
+							<input
+						    type="text"
+								name="nbMeasures"
+						    id="nbMeasures"
+								data-provide="slider"
+								data-slider-id="slider"
+								data-slider-min="1"
+								data-slider-max="<%= nbMeasures %>"
+								data-slider-step="1"
+								data-slider-value="<%= nbMeasuresSel %>"
+							/>
+							<input type="submit" class="btn btn-primary col-sm-offset-1" value="Submit">
+						</form>
+						<div class="form-horizontal col-lg-6">
+							<h2>Average</h2>
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>temperature</th>
+											<th>humidity</th>
+											<th>luminance</th>
+										</tr>
+									</thead>
+									<tbody>
+		                <tr>
+		                  <td><%= measures.temperature %></td>
+		                  <td><%= measures.humidity %></td>
+		                  <td><%= measures.luminance %></td>
+		                </tr>
+		              </tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-horizontal col-lg-12">
+							<h2>Monitoring</h2>
+							
 						</div>
 					</div>
         </div>
-      </div>
     </div>
     <% include ../partials/footer %>
   </body>
