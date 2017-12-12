@@ -2,10 +2,10 @@ var parseurl = require('parseurl');
 var async = require('async');
 var Client = require('node-rest-client').Client;
 
-var tempEmptySel = 1;
-var tempFullSel = 1;
-var humSel = 1;
-var lumSel = 1;
+var tempEmptySel = new Map();
+var tempFullSel = new Map();
+var humSel = new Map();
+var lumSel = new Map();
 
 module.exports = {
   getLastMeasures: function (req, res) {
@@ -139,6 +139,14 @@ module.exports = {
 		  }
 		],
 		function (err, result) {
+			req.session.rooms.forEach(function(room, index) {
+				if (typeof(tempEmptySel.get(room)) == 'undefined') {
+					tempEmptySel.set(room, 1);
+					tempFullSel.set(room, 1);
+					humSel.set(room, 1);
+					lumSel.set(room, 1);
+				}
+			});
 			res.render('pages/rooms.ejs', {
 				url:  parseurl(req).pathname,
 				rooms: req.session.rooms,
@@ -146,45 +154,49 @@ module.exports = {
 				nbMeasures: req.session.nbMeasures,
 				nbMeasuresSel: req.session.nbMeasuresSel,
 				measures: result[2],
-				tempEmptySel: tempEmptySel,
-				tempFullSel: tempFullSel,
-				humSel: humSel,
-				lumSel: lumSel
+				tempEmptySel: tempEmptySel.get(req.session.roomSel),
+				tempFullSel: tempFullSel.get(req.session.roomSel),
+				humSel: humSel.get(req.session.roomSel),
+				lumSel: lumSel.get(req.session.roomSel)
 			});
 		});
 	},
 	
 	postDriversThresholds: function (req) {
-		tempEmptySel = Number(req.body.tempEmpty);
-		tempFullSel = Number(req.body.tempFull);
-		humSel = Number(req.body.hum);
-		lumSel = Number(req.body.lum);
+		tempEmptySel.set(req.session.roomSel, Number(req.body.tempEmpty));
+		tempFullSel.set(req.session.roomSel, Number(req.body.tempFull));
+		humSel.set(req.session.roomSel, Number(req.body.hum));
+		lumSel.set(req.session.roomSel, Number(req.body.lum));
 		var rule1 = {
-		    data: { rule: 1,
-		            location: req.session.roomSel,
-		            threshold: tempEmptySel},
-
+		    data: { 
+					rule: 1,
+          location: req.session.roomSel,
+          threshold: tempEmptySel.get(req.session.roomSel)
+				},
 		    headers: { "Content-Type": "application/json" }
 		};
 		var rule2 = {
-		    data: { rule: 2,
-		            location: req.session.roomSel,
-		            threshold: tempFullSel},
-
+		    data: { 
+					rule: 2,
+          location: req.session.roomSel,
+          threshold: tempFullSel.get(req.session.roomSel)
+				},
 		    headers: { "Content-Type": "application/json" }
 		};
 		var rule3 = {
-		    data: { rule: 3,
-		            location: req.session.roomSel,
-		            threshold: humSel},
-
+		    data: {
+					rule: 3,
+          location: req.session.roomSel,
+          threshold: humSel.get(req.session.roomSel)
+				},
 		    headers: { "Content-Type": "application/json" }
 		};
 		var rule4 = {
-		    data: { rule: 4,
-		            location: req.session.roomSel,
-		            threshold: lumSel},
-
+		    data: { 
+					rule: 4,
+          location: req.session.roomSel,
+          threshold: lumSel.get(req.session.roomSel)
+				},
 		    headers: { "Content-Type": "application/json" }
 		};
 		async.series([
