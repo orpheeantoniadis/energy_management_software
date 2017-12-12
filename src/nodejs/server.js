@@ -2,10 +2,15 @@ var express = require('express');
 var session = require('express-session');
 var parseurl = require('parseurl');
 var bodyParser = require('body-parser');
+var fs = require('fs')
+var ini = require('ini')
 var tools = require('./rest-tools');
 
 var app = express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var config = ini.parse(fs.readFileSync('../python/drivers.ini', 'utf-8'))
+
+tools.setDrivers(config);
 
 app.use(session({
   secret: 'secretkey',
@@ -49,6 +54,8 @@ app.use(session({
 })
 
 .get('/rooms', function(req, res) {
+	tools.getRadiatorsValues();
+	tools.getStoresValues();
 	tools.getRoomAvg(req, res);
 })
 

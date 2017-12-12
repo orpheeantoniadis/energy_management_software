@@ -7,6 +7,9 @@ var tempFullSel = new Map();
 var humSel = new Map();
 var lumSel = new Map();
 
+var radiators = [];
+var stores = [];
+
 module.exports = {
   getLastMeasures: function (req, res) {
 		async.series([
@@ -157,7 +160,9 @@ module.exports = {
 				tempEmptySel: tempEmptySel.get(req.session.roomSel),
 				tempFullSel: tempFullSel.get(req.session.roomSel),
 				humSel: humSel.get(req.session.roomSel),
-				lumSel: lumSel.get(req.session.roomSel)
+				lumSel: lumSel.get(req.session.roomSel),
+				radiators: radiators,
+				stores: stores
 			});
 		});
 	},
@@ -233,7 +238,39 @@ module.exports = {
 				});
 		  }
 		],
-		function (err, result) {}
-	);
+		function (err, result) {});
+	},
+	
+	setDrivers: function (drivers) {
+		Object.keys(drivers).forEach(function(key, index) {
+			var device = Object.getOwnPropertyDescriptor(drivers, key).value;
+			if (device.type == 'radiator') {
+				radiators.push(device);
+			} else if (device.type == 'store') {
+				stores.push(device);
+			}
+		});
+	},
+	
+	getRadiatorsValues: function () {
+		radiators.forEach(function(radiator, index) {
+			var client = new Client();
+			var url = "http://localhost:5000/v0/radiator/read/"+radiator.id;
+			client.registerMethod("jsonMethod", url, "GET");
+			client.methods.jsonMethod(function (data, response) {
+				radiator.value = data.current_value;
+			});
+		});
+  },
+	
+	getStoresValues: function () {
+		stores.forEach(function(store, index) {
+			var client = new Client();
+			var url = "http://localhost:5000/v0/store/read/"+store.id;
+			client.registerMethod("jsonMethod", url, "GET");
+			client.methods.jsonMethod(function (data, response) {
+				store.value = data.current_value;
+			});
+		});
   }
 };

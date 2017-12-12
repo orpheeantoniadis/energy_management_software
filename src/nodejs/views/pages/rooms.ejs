@@ -118,6 +118,27 @@
 								<input type="submit" class="btn btn-primary" value="Submit">
 							</form>
 						</div>
+						<div class="form-horizontal col-lg-6">
+							<h2>Drivers</h2>
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>radiators</th>
+											<th>stores</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% for (var i = 0; i < radiators.length; i++) { %>
+		                <tr>
+											<td> <%= radiators[i].value %> </td>
+											<td> <%= stores[i].value %> </td>
+		                </tr>
+										<% } %>
+		              </tbody>
+								</table>
+							</div>
+						</div>
 					</div>
         </div>
     </div>
