@@ -53,12 +53,18 @@ app.use(session({
 })
 
 .post('/rooms/selection', urlencodedParser, function(req, res) {
-	if (req.session.roomSel != req.body.room) {
-		req.session.nbMeasuresSel = undefined;
-	} else {
-		req.session.nbMeasuresSel = req.body.nbMeasures;
-	}
+	req.session.nbMeasuresSel = undefined;
 	req.session.roomSel = req.body.room;
+	res.redirect('/rooms');
+})
+
+.post('/rooms/average', urlencodedParser, function(req, res) {
+	req.session.nbMeasuresSel = req.body.nbMeasures;
+	res.redirect('/rooms');
+})
+
+.post('/rooms/monitoring', urlencodedParser, function(req, res) {
+	tools.postDriversThresholds(req);
 	res.redirect('/rooms');
 })
 

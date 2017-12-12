@@ -12,10 +12,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					<h1 class="page-header">Rooms</h1>
 					<div class="row">
-						<form id="rooms" class="form-horizontal col-lg-6" method="post" action="/rooms/selection"/>
+						<form id="room_select" class="form-horizontal col-lg-6" method="post" action="/rooms/selection"/>
 						<h2>Selection</h2>
 							<label for="room">Select the room :</label>
-							<select name="room" id="room">
+							<select name="room" id="room" onchange="form.submit()">
 								<% rooms.forEach(function(room, index) { %>
 								<option 
 									value="<%= room %>"
@@ -26,22 +26,23 @@
 								</option>
 								<% }); %>
 							</select>
-							<br/>
-							<input
-						    type="text"
-								name="nbMeasures"
-						    id="nbMeasures"
-								data-provide="slider"
-								data-slider-id="slider"
-								data-slider-min="1"
-								data-slider-max="<%= nbMeasures %>"
-								data-slider-step="1"
-								data-slider-value="<%= nbMeasuresSel %>"
-							/>
-							<input type="submit" class="btn btn-primary col-sm-offset-1" value="Submit">
 						</form>
 						<div class="form-horizontal col-lg-6">
 							<h2>Average</h2>
+							<form id="rooms_avg" method="post" action="/rooms/average"/>
+								<input
+							    type="text"
+									name="nbMeasures"
+							    id="nbMeasures"
+									data-provide="slider"
+									data-slider-id="slider"
+									data-slider-min="1"
+									data-slider-max="<%= nbMeasures %>"
+									data-slider-step="1"
+									data-slider-value="<%= nbMeasuresSel %>"
+								/>
+								<input type="submit" class="btn btn-primary col-sm-offset-1" value="Submit">
+							</form>
 							<div class="table-responsive">
 								<table class="table table-striped">
 									<thead>
@@ -63,9 +64,59 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-horizontal col-lg-12">
+						<div class="form-horizontal col-lg-6">
 							<h2>Monitoring</h2>
-							
+							<form id="room_monitoring" method="post" action="/rooms/monitoring"/>
+								<label for="tempEmpty">Select the temperature threshold when the room is empty :</label><br/>
+								<input
+							    type="text"
+									name="tempEmpty"
+							    id="tempEmpty"
+									data-provide="slider"
+									data-slider-id="slider"
+									data-slider-min="1"
+									data-slider-max="30"
+									data-slider-step="1"
+									data-slider-value="<%= tempEmptySel %>"
+								/><br/><br/>
+								<label for="tempFull">Select the temperature threshold when the room is full :</label><br/>
+								<input
+							    type="text"
+									name="tempFull"
+							    id="tempFull"
+									data-provide="slider"
+									data-slider-id="slider"
+									data-slider-min="1"
+									data-slider-max="30"
+									data-slider-step="1"
+									data-slider-value="<%= tempFullSel %>"
+								/><br/><br/>
+								<label for="tempFull">Select the humidity threshold :</label><br/>
+								<input
+							    type="text"
+									name="hum"
+							    id="hum"
+									data-provide="slider"
+									data-slider-id="slider"
+									data-slider-min="1"
+									data-slider-max="100"
+									data-slider-step="1"
+									data-slider-value="<%= humSel %>"
+								/><br/><br/>
+								<label for="tempFull">Select the luminance threshold :</label><br/>
+								<input
+							    type="text"
+									name="lum"
+							    id="lum"
+									data-provide="slider"
+									data-slider-id="slider"
+									data-slider-min="1"
+									data-slider-max="1000"
+									data-slider-step="1"
+									data-slider-value="<%= lumSel %>"
+								/><br/><br/>
+								<input type="submit" class="btn btn-primary" value="Submit">
+							</form>
 						</div>
 					</div>
         </div>
