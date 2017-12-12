@@ -1,10 +1,21 @@
 \i distributed_create.sql
 
+-- file used only for testes !
+
 insert into drivers values(1,'radiator',20,'2004-10-19 10:23:54');
 insert into drivers values(1,'store',70,'2004-10-19 10:23:54');
 insert into drivers values(2,'radiator',90,'2004-10-19 10:23:54');
 insert into drivers values(2,'store',250,'2004-10-19 10:23:54');
 insert into drivers values(10,'radiator',40,'2004-10-19 10:23:54');
+
+insert into rules values(1,'A501',20,'2004-10-19 10:23:54');
+insert into rules values(2,'A501',20,'2004-10-19 10:23:54');
+insert into rules values(3,'A501',80,'2004-10-19 10:23:54');
+insert into rules values(4,'A501',80,'2004-10-19 10:23:54');
+
+  -- update measures set temperature=2 where battery=0 and id=2 and controller like 'Pi 1' and humidity=25 and luminance=25;
+-- update measures set temperature=25,motion=false where battery=0 and id=2 and controller like 'Pi 1' and humidity=25 and luminance=25;
+-- SELECT * FROM measures m JOIN sensors s ON (m.id = s.id AND m.controller = s.controller) WHERE location ILIKE 'A501' ORDER BY date DESC LIMIT 1;
 
 insert into sensors values(1,'Pi lab1','Room 401');
 insert into sensors values(1,'Pi lab2','Room 502');
