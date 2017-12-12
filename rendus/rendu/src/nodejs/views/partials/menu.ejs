@@ -1,0 +1,39 @@
+<!-- views/partials/menu.ejs -->
+
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+		<li 
+			<% if(url == "/"){ %>
+				class="active"
+			<% } %>
+		>
+			<a href="/">Overview
+				<% if(url == "/"){ %>
+					<span class="sr-only">(current)</span>
+				<% } %>
+			</a>
+		</li>
+		<li 
+			<% if(url == "/sensors"){ %>
+				class="active"
+			<% } %>
+		>
+			<a href="/sensors">Sensors
+				<% if(url == "/sensors"){ %>
+					<span class="sr-only">(current)</span>
+				<% } %>
+			</a>
+		</li>
+		<li 
+			<% if(url == "/rooms"){ %>
+				class="active"
+			<% } %>
+		/>
+			<a href="/rooms">Rooms
+				<% if(url == "/rooms"){ %>
+					<span class="sr-only">(current)</span>
+				<% } %>
+			</a>
+		</li>
+  </ul>
+</div>
